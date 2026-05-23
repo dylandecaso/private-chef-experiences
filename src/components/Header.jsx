@@ -26,11 +26,11 @@ export default function Header() {
         aria-label="Primary"
       >
         {/* Logo */}
-        <a href="#home" className="group flex items-center gap-3">
+        <a href="#home" className="group flex items-center gap-3 sm:gap-4">
           {/* Chef hat icon */}
           <svg
             viewBox="0 0 24 24"
-            className="h-8 w-8 shrink-0 fill-gold sm:h-9 sm:w-9"
+            className="h-9 w-9 shrink-0 fill-gold transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10"
             aria-hidden="true"
           >
             <path
@@ -38,12 +38,14 @@ export default function Header() {
               d="M12.5 1.5c-1.77 0-3.33 1.17-3.83 2.87C8.14 4.13 7.58 4 7 4a4 4 0 0 0-4 4a4.01 4.01 0 0 0 3 3.87V19h13v-7.13c1.76-.46 3-2.05 3-3.87a4 4 0 0 0-4-4c-.58 0-1.14.13-1.67.37c-.5-1.7-2.06-2.87-3.83-2.87m-.5 9h1v7h-1zm-3 2h1v5H9zm6 0h1v5h-1zM6 20v1a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-1z"
             />
           </svg>
-          <span className="flex flex-col leading-none">
-            <span className="font-serif text-xl tracking-[0.18em] text-cream sm:text-2xl">
+          {/* thin gold divider */}
+          <span className="h-9 w-px bg-line sm:h-10" aria-hidden="true" />
+          <span className="flex flex-col gap-1 leading-none">
+            <span className="font-serif text-lg font-medium tracking-[0.2em] text-cream sm:text-xl">
               EMANUEL ACIAR
             </span>
-            <span className="text-[0.6rem] tracking-[0.4em] text-gold sm:text-xs">
-              PRIVATE CHEF experiences
+            <span className="text-[0.55rem] uppercase tracking-[0.34em] text-gold/90 sm:text-[0.65rem]">
+              Private Chef Experiences
             </span>
           </span>
         </a>

@@ -80,17 +80,25 @@ export default function Header() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
         >
-          <span className="relative block h-4 w-6">
-            <span
-              className={`absolute left-0 top-0 h-0.5 w-6 bg-current transition-transform duration-300 ${open ? 'translate-y-2 rotate-45' : ''}`}
-            />
-            <span
-              className={`absolute left-0 top-1.5 h-0.5 w-6 bg-current transition-opacity duration-200 ${open ? 'opacity-0' : ''}`}
-            />
-            <span
-              className={`absolute bottom-0 left-0 h-0.5 w-6 bg-current transition-transform duration-300 ${open ? '-translate-y-1.5 -rotate-45' : ''}`}
-            />
-          </span>
+          {open ? (
+            /* Close (X) icon */
+            <svg
+              viewBox="0 0 24 24"
+              className="h-7 w-7 fill-current"
+              aria-hidden="true"
+            >
+              <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z" />
+            </svg>
+          ) : (
+            /* Hamburger icon */
+            <svg
+              viewBox="0 0 24 24"
+              className="h-7 w-7 fill-current"
+              aria-hidden="true"
+            >
+              <path d="M21 6a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h16a1 1 0 0 1 1 1m0 6a1 1 0 0 1-1 1H4a1 1 0 0 1 0-2h16a1 1 0 0 1 1 1m0 6a1 1 0 0 1-1 1H4a1 1 0 0 1 0-2h16a1 1 0 0 1 1 1" />
+            </svg>
+          )}
         </button>
       </nav>
 

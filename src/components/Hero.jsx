@@ -6,14 +6,17 @@ export default function Hero() {
       {/* Background image — Replace public/images/hero.jpg with a real photo
           of the chef cooking, plating, or a premium dish. */}
       <SafeImage
-        src="/images/hero.jpg"
-        alt="Private chef preparing an elegant plated dish"
+        src="/images/hero.png"
+        alt="Mediterranean feast of shared dishes on a table"
         className="absolute inset-0 h-full w-full object-cover"
         loading="eager"
       />
 
-      {/* Dark overlay for legible text */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/60 to-ink" />
+      {/* Dark overlays for legible text:
+          - vertical fade so it blends into the next section
+          - left-to-right fade so the headline (on the left) stays readable */}
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/55 to-ink" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent" />
 
       {/* Content */}
       <div className="relative mx-auto w-full max-w-7xl px-5 py-32 lg:px-8">

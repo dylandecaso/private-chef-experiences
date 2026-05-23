@@ -19,7 +19,7 @@ export default function Hero() {
       <div className="relative mx-auto w-full max-w-7xl px-5 py-32 lg:px-8">
         <div className="max-w-2xl reveal">
           <p className="mb-6 text-sm uppercase tracking-[0.4em] text-gold">
-            Private Chef Service
+            Italian &amp; Mediterranean Cuisine
           </p>
           <h1 className="font-serif text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
             Exceptional Cuisine.

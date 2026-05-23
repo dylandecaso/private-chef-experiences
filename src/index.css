@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   PRIVATE CHEF experiences — brand design tokens
+   Edit colors / fonts here once and they apply everywhere.
+   Use them in JSX as Tailwind utilities, e.g. text-gold, bg-ink.
+   ============================================================ */
+@theme {
+  /* Backgrounds */
+  --color-ink: #050505;
+  --color-ink-2: #0b0b0b;
+  --color-ink-3: #111111;
+
+  /* Accents */
+  --color-gold: #c49a5a;
+  --color-bronze: #8a6a3a;
+
+  /* Text */
+  --color-cream: #f5f1ea;
+  --color-muted: #b8b2a8;
+
+  /* Border tint (gold @ 25%) */
+  --color-line: rgba(196, 154, 90, 0.25);
+
+  /* Fonts */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* offset so sticky header doesn't cover section tops when scrolling to anchors */
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle fade-in-on-scroll. Elements start as .reveal and get .is-visible
+   added by an IntersectionObserver (see useReveal in App.jsx). */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Thin gold scrollbar to match the luxury theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-bronze);
+  border-radius: 8px;
+}

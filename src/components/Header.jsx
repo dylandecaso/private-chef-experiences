@@ -40,10 +40,10 @@ export default function Header() {
           </svg>
           <span className="flex flex-col leading-none">
             <span className="font-serif text-xl tracking-[0.18em] text-cream sm:text-2xl">
-              PRIVATE CHEF
+              EMANUEL ACIAR
             </span>
-            <span className="text-[0.6rem] tracking-[0.45em] text-gold sm:text-xs">
-              EXPERIENCES
+            <span className="text-[0.6rem] tracking-[0.4em] text-gold sm:text-xs">
+              PRIVATE CHEF experiences
             </span>
           </span>
         </a>

@@ -20,10 +20,10 @@ export default function Footer() {
             </svg>
             <div className="flex flex-col leading-none">
               <span className="font-serif text-2xl tracking-[0.18em] text-cream">
-                PRIVATE CHEF
+                EMANUEL ACIAR
               </span>
-              <span className="text-xs tracking-[0.45em] text-gold">
-                EXPERIENCES
+              <span className="text-xs tracking-[0.35em] text-gold">
+                PRIVATE CHEF experiences
               </span>
             </div>
           </div>

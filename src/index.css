@@ -66,6 +66,31 @@ body {
   }
 }
 
+/* Soft pulse for the floating WhatsApp ring — much gentler than animate-ping
+   (small expansion, low opacity, slow). */
+@keyframes soft-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+.animate-soft-pulse {
+  animation: soft-pulse 2.8s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-soft-pulse {
+    animation: none;
+  }
+}
+
 /* Thin gold scrollbar to match the luxury theme */
 ::-webkit-scrollbar {
   width: 10px;

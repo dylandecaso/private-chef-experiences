@@ -98,9 +98,6 @@ export default function Gallery() {
     <section id="gallery" className="bg-ink-2 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
-          <p className="mb-4 text-sm uppercase tracking-[0.4em] text-gold">
-            {t('gallery.eyebrow')}
-          </p>
           <h2 className="font-serif text-3xl text-cream sm:text-4xl">{t('gallery.title')}</h2>
         </div>
 

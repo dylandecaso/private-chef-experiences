@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="border-t border-line bg-ink">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-4">
@@ -32,28 +32,6 @@ export default function Footer() {
               </span>
             </div>
           </div>
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
-            {t('footer.description')}
-          </p>
-        </div>
-
-        {/* Quick Links */}
-        <div>
-          <h3 className="text-sm uppercase tracking-[0.3em] text-gold">
-            {t('footer.quickLinks')}
-          </h3>
-          <ul className="mt-5 space-y-3">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-sm text-muted transition-colors hover:text-gold"
-                >
-                  {t(`nav.${link.key}`)}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Contact */}

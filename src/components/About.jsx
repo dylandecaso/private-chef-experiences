@@ -1,6 +1,9 @@
 import SafeImage from './SafeImage'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function About() {
+  const { t } = useLanguage()
+
   return (
     <section id="about" className="py-24 lg:py-32">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-2 lg:gap-16 lg:px-8">
@@ -10,7 +13,7 @@ export default function About() {
           <div className="overflow-hidden rounded-lg border border-line">
             <SafeImage
               src="/images/about.jpg"
-              alt="The private chef at work in the kitchen"
+              alt={t('about.imageAlt')}
               className="aspect-[4/5] w-full object-cover"
             />
           </div>
@@ -19,32 +22,26 @@ export default function About() {
         {/* Text */}
         <div className="reveal">
           <p className="mb-4 text-sm uppercase tracking-[0.4em] text-gold">
-            About
+            {t('about.eyebrow')}
           </p>
           <h2 className="font-serif text-3xl leading-snug text-cream sm:text-4xl">
-            Quality Ingredients.
+            {t('about.titleLine1')}
             <br />
-            Thoughtful Cuisine.
+            {t('about.titleLine2')}
             <br />
-            <span className="text-gold">Meaningful Moments.</span>
+            <span className="text-gold">{t('about.titleLine3')}</span>
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted">
-            Passionate culinary professional with experience in both kitchen
-            and front-of-house roles. Trained in Argentina and developed
-            professionally in the United States within high-level hospitality
-            environments.
+            {t('about.p1')}
           </p>
           <p className="mt-4 text-base leading-relaxed text-muted">
-            Highly motivated to grow as a Private Chef, bringing creativity,
-            dedication, and a strong work ethic. Committed to delivering
-            exceptional culinary experiences while continuously learning and
-            evolving.
+            {t('about.p2')}
           </p>
           <a
             href="#experiences"
             className="mt-8 inline-block rounded-full border border-gold px-8 py-3.5 text-sm tracking-wide text-gold transition-all hover:bg-gold hover:text-ink"
           >
-            Learn More
+            {t('about.cta')}
           </a>
         </div>
       </div>

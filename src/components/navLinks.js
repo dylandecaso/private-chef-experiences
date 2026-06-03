@@ -1,10 +1,11 @@
 // Single source of truth for the nav links, shared by Header and Footer.
 // `href` points to a section id on this one page (no router / no extra pages).
+// `key` maps to the translations file (src/i18n/translations.js → nav.*).
 export const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Experiences', href: '#experiences' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '#contact' },
+  { key: 'home', href: '#home' },
+  { key: 'about', href: '#about' },
+  { key: 'services', href: '#services' },
+  { key: 'experiences', href: '#experiences' },
+  { key: 'gallery', href: '#gallery' },
+  { key: 'contact', href: '#contact' },
 ]

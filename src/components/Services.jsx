@@ -1,3 +1,5 @@
+import { useLanguage } from '../i18n/LanguageContext'
+
 // Simple line icons (stroke = currentColor so they inherit the gold accent).
 const icons = {
   dinner: (
@@ -19,50 +21,29 @@ const icons = {
 }
 
 const services = [
-  {
-    icon: 'dinner',
-    title: 'Private Dinners',
-    text: 'Intimate and exclusive dining experiences crafted just for you.',
-  },
-  {
-    icon: 'prep',
-    title: 'Weekly Meal Prep',
-    text: 'Healthy, personalized meals prepared for your week.',
-  },
-  {
-    icon: 'events',
-    title: 'Events & Celebrations',
-    text: 'Custom menus for special occasions and gatherings.',
-  },
-  {
-    icon: 'healthy',
-    title: 'Healthy & Customized',
-    text: 'Nutritious, balanced menus adapted to your diet and lifestyle.',
-  },
-  {
-    icon: 'home',
-    title: 'In-Home Chef Service',
-    text: 'Professional service in the comfort of your home.',
-  },
+  { icon: 'dinner', titleKey: 'dinnerTitle', textKey: 'dinnerText' },
+  { icon: 'prep', titleKey: 'prepTitle', textKey: 'prepText' },
+  { icon: 'events', titleKey: 'eventsTitle', textKey: 'eventsText' },
+  { icon: 'healthy', titleKey: 'healthyTitle', textKey: 'healthyText' },
+  { icon: 'home', titleKey: 'homeTitle', textKey: 'homeText' },
 ]
 
 export default function Services() {
+  const { t } = useLanguage()
+
   return (
     <section id="services" className="bg-ink-2 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
-          <p className="mb-4 text-sm uppercase tracking-[0.4em] text-gold">
-            What I Offer
-          </p>
           <h2 className="font-serif text-3xl text-cream sm:text-4xl">
-            Services
+            {t('services.title')}
           </h2>
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (
             <div
-              key={s.title}
+              key={s.titleKey}
               className="group rounded-lg border border-line bg-ink-3 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold reveal"
             >
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-line text-gold transition-colors group-hover:border-gold">
@@ -79,8 +60,12 @@ export default function Services() {
                   {icons[s.icon]}
                 </svg>
               </div>
-              <h3 className="font-serif text-xl text-cream">{s.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{s.text}</p>
+              <h3 className="font-serif text-xl text-cream">
+                {t(`services.items.${s.titleKey}`)}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                {t(`services.items.${s.textKey}`)}
+              </p>
             </div>
           ))}
         </div>

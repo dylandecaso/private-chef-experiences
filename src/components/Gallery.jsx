@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import SafeImage from './SafeImage'
+import { useLanguage } from '../i18n/LanguageContext'
 
 // ============================================================
 // GALLERY IMAGES — EDIT THIS ARRAY TO CHANGE THE GALLERY.
@@ -31,6 +32,7 @@ const INITIAL_COUNT = 6
 const STEP = 6
 
 export default function Gallery() {
+  const { t } = useLanguage()
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT)
   // Index of the photo open in the lightbox, or null when closed.
   const [activeIndex, setActiveIndex] = useState(null)
@@ -97,9 +99,9 @@ export default function Gallery() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
           <p className="mb-4 text-sm uppercase tracking-[0.4em] text-gold">
-            A Taste Of The Work
+            {t('gallery.eyebrow')}
           </p>
-          <h2 className="font-serif text-3xl text-cream sm:text-4xl">Gallery</h2>
+          <h2 className="font-serif text-3xl text-cream sm:text-4xl">{t('gallery.title')}</h2>
         </div>
 
         {/* Responsive grid: 2 cols (mobile) / 2 (tablet) / 3 (desktop) */}
@@ -109,7 +111,7 @@ export default function Gallery() {
               type="button"
               key={item.src}
               onClick={() => openAt(i)}
-              aria-label={`Open image: ${item.alt}`}
+              aria-label={`${t('gallery.openImage')}: ${item.alt}`}
               className="group relative aspect-square overflow-hidden rounded-xl border border-line outline-none transition-all duration-300 hover:border-gold focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/60"
             >
               <SafeImage
@@ -139,12 +141,12 @@ export default function Gallery() {
               }
               className="rounded-full border border-gold px-8 py-3.5 text-sm tracking-wide text-gold transition-all hover:bg-gold hover:text-ink"
             >
-              Load More
+              {t('gallery.loadMore')}
             </button>
           ) : (
             galleryImages.length > INITIAL_COUNT && (
               <p className="text-sm uppercase tracking-[0.3em] text-muted">
-                No more images
+                {t('gallery.noMore')}
               </p>
             )
           )}
@@ -157,7 +159,7 @@ export default function Gallery() {
           className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/90 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
-          aria-label="Image viewer"
+          aria-label={t('gallery.viewer')}
           onClick={close}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -166,7 +168,7 @@ export default function Gallery() {
           <button
             type="button"
             onClick={close}
-            aria-label="Close"
+            aria-label={t('gallery.close')}
             className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-ink/60 text-cream transition-colors hover:border-gold hover:text-gold"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
@@ -181,7 +183,7 @@ export default function Gallery() {
               e.stopPropagation()
               prev()
             }}
-            aria-label="Previous image"
+            aria-label={t('gallery.prev')}
             className="absolute left-3 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink/60 text-cream transition-colors hover:border-gold hover:text-gold sm:left-6"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
@@ -212,7 +214,7 @@ export default function Gallery() {
               e.stopPropagation()
               next()
             }}
-            aria-label="Next image"
+            aria-label={t('gallery.next')}
             className="absolute right-3 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink/60 text-cream transition-colors hover:border-gold hover:text-gold sm:right-6"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">

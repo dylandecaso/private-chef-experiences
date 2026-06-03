@@ -1,52 +1,45 @@
-import SafeImage from './SafeImage'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Hero() {
+  const { t } = useLanguage()
+
   return (
-    <section id="home" className="relative flex min-h-screen items-center">
-      {/* Background image — Replace public/images/hero.jpg with a real photo
-          of the chef cooking, plating, or a premium dish. */}
-      <SafeImage
-        src="/images/hero.png"
-        alt="Mediterranean feast of shared dishes on a table"
-        className="absolute inset-0 h-full w-full object-cover"
-        loading="eager"
+    <section
+      id="home"
+      className="relative flex min-h-screen items-center overflow-hidden"
+    >
+      <video
+        className="absolute inset-0 h-full w-full object-cover object-right"
+        src="/videos/hero-desktop.mp4"
+        poster="/images/hero1.png"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
       />
 
-      {/* Dark overlays for legible text:
+      {/* Overlays for text legibility:
           - vertical fade so it blends into the next section
-          - left-to-right fade so the headline (on the left) stays readable */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/55 to-ink" />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent" />
+          - subtle left-side darkening behind the text */}
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/40 to-ink" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/30 to-transparent lg:from-ink/85 lg:via-ink/20" />
 
-      {/* Content */}
-      <div className="relative mx-auto w-full max-w-7xl px-5 py-32 lg:px-8">
-        <div className="max-w-2xl reveal">
+      {/* Content — text on the left half */}
+      <div className="relative mx-auto w-full max-w-7xl px-5 py-28 lg:px-8 lg:py-32">
+        <div className="max-w-xl reveal lg:ml-0 lg:mr-auto lg:w-[48%] lg:max-w-none">
           <p className="mb-6 text-sm uppercase tracking-[0.4em] text-gold">
-            Italian &amp; Mediterranean Cuisine
+            {t('hero.eyebrow')}
           </p>
           <h1 className="font-serif text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
-            Exceptional Cuisine.
+            {t('hero.titleLine1')}
             <br />
-            <span className="text-gold">Personalized For You.</span>
+            <span className="text-gold">{t('hero.titleLine2')}</span>
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            Elevated culinary experiences in the comfort of your home. Crafted
-            with premium ingredients, thoughtful menus, and a personal approach
-            designed around your tastes, needs, and special moments.
-          </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="#contact"
-              className="rounded-full bg-gold px-8 py-3.5 text-center text-sm font-medium tracking-wide text-ink transition-all hover:bg-cream"
-            >
-              Book Your Experience
-            </a>
-            <a
-              href="#services"
-              className="rounded-full border border-line px-8 py-3.5 text-center text-sm tracking-wide text-cream transition-all hover:border-gold hover:text-gold"
-            >
-              View Services
-            </a>
+          <div className="mt-6 max-w-xl space-y-4 text-base leading-relaxed text-muted sm:text-lg">
+            <p>{t('hero.p1')}</p>
+            <p>{t('hero.p2')}</p>
+            <p>{t('hero.p3')}</p>
           </div>
         </div>
       </div>

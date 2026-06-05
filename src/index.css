@@ -93,95 +93,29 @@ body {
 
 /* ============================================================
    Hero CTA — "Book an Experience"
-   Resting state: soft translucent gold gradient + thin gold border.
-   A slow, subtle shimmer sweeps across to feel alive but premium.
-   Hover: background goes transparent, border + text brighten to gold,
-   gentle glow and a small lift. Respects reduced-motion.
+   Understated outline button. Resting: transparent fill, full solid
+   gold border. Hover: a faint translucent gold fill fades in. No
+   animation, no glow — just a quiet color shift.
    ============================================================ */
 .hero-cta {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border: 1px solid rgba(196, 154, 90, 0.55);
-  background: linear-gradient(
-    135deg,
-    rgba(196, 154, 90, 0.22) 0%,
-    rgba(138, 106, 58, 0.12) 50%,
-    rgba(196, 154, 90, 0.22) 100%
-  );
+  border: 1px solid var(--color-gold);
+  background: transparent;
   color: var(--color-cream);
-  box-shadow:
-    0 1px 0 rgba(245, 241, 234, 0.08) inset,
-    0 8px 24px rgba(0, 0, 0, 0.25);
   transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.45s ease,
-    background 0.45s ease,
-    color 0.45s ease,
-    box-shadow 0.45s ease;
-}
-
-/* Slow shimmer sweep — a soft diagonal highlight crossing the surface. */
-.hero-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    115deg,
-    transparent 30%,
-    rgba(245, 241, 234, 0.18) 50%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  animation: cta-shimmer 4.5s ease-in-out infinite;
-}
-
-@keyframes cta-shimmer {
-  0%,
-  100% {
-    transform: translateX(-120%);
-  }
-  55%,
-  70% {
-    transform: translateX(120%);
-  }
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
 .hero-cta:hover {
-  transform: translateY(-2px);
-  border-color: var(--color-gold);
-  background: transparent;
+  background: rgba(196, 154, 90, 0.12);
   color: var(--color-gold);
-  box-shadow:
-    0 0 0 1px rgba(196, 154, 90, 0.4),
-    0 0 22px rgba(196, 154, 90, 0.35),
-    0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.hero-cta:active {
-  transform: translateY(0);
 }
 
 .hero-cta:focus-visible {
   outline: none;
-  border-color: var(--color-gold);
   box-shadow:
     0 0 0 2px var(--color-ink),
     0 0 0 4px rgba(196, 154, 90, 0.6);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-cta {
-    transition: none;
-  }
-  .hero-cta::before {
-    animation: none;
-    display: none;
-  }
-  .hero-cta:hover {
-    transform: none;
-  }
 }
 
 /* Thin gold scrollbar to match the luxury theme */

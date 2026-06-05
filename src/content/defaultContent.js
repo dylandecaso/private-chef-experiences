@@ -20,6 +20,7 @@ export const defaultContent = {
     },
     videoUrl: '/videos/hero-desktop.mp4',
     posterUrl: '/images/hero1.png',
+    bioVideoUrl: '/videos/bio-background.mp4',
     audioEn: '',
     audioEs: '',
   },

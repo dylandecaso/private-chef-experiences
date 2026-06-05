@@ -47,7 +47,7 @@ export default function Hero() {
         </div>
         <a
           href="#contact"
-          className="mt-10 inline-block rounded-full bg-gold px-10 py-4 text-sm font-medium tracking-wide text-ink transition-all hover:bg-cream sm:text-base"
+          className="hero-cta mt-10 inline-block rounded-full px-10 py-4 text-sm font-medium tracking-wide sm:text-base"
         >
           {cta}
         </a>

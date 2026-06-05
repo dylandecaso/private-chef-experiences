@@ -32,6 +32,13 @@ export default function HeroEditor({ value, onChange }) {
           value={value.posterUrl}
           onChange={set('posterUrl')}
         />
+        <ImageField
+          label="Bio section background video"
+          value={value.bioVideoUrl}
+          onChange={set('bioVideoUrl')}
+          accept="video/mp4,video/webm"
+          hint="Plays behind the 3 bio paragraphs. MP4/WebM, up to 50 MB. Leave empty for a solid background."
+        />
       </div>
 
       <div className="space-y-3 rounded-md border border-line bg-ink-3 p-4">

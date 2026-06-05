@@ -1,57 +1,36 @@
 import SafeImage from './SafeImage'
 import { useLanguage } from '../i18n/LanguageContext'
-
-// Replace each image in public/images/experiences/ with a real photo.
-const experiences = [
-  {
-    src: '/images/experiences/intimate-dinners.jpg',
-    titleKey: 'intimateTitle',
-    textKey: 'intimateText',
-  },
-  {
-    src: '/images/experiences/family-gatherings.jpg',
-    titleKey: 'familyTitle',
-    textKey: 'familyText',
-  },
-  {
-    src: '/images/experiences/special-celebrations.jpg',
-    titleKey: 'celebrationsTitle',
-    textKey: 'celebrationsText',
-  },
-  {
-    src: '/images/experiences/wellness-cuisine.jpg',
-    titleKey: 'wellnessTitle',
-    textKey: 'wellnessText',
-  },
-]
+import { useContent } from '../content/ContentContext'
 
 export default function Experiences() {
-  const { t } = useLanguage()
+  const { lang } = useLanguage()
+  const { content } = useContent()
+  const experiences = content.experiences
+  const pick = (field) => field?.[lang] ?? field?.en ?? ''
 
   return (
     <section id="experiences" className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
           <h2 className="font-serif text-3xl text-cream sm:text-4xl">
-            {t('experiences.title')}
+            {pick(experiences.title)}
           </h2>
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {experiences.map((exp) => {
-            const title = t(`experiences.items.${exp.titleKey}`)
-            const text = t(`experiences.items.${exp.textKey}`)
+          {experiences.items.map((exp) => {
+            const title = pick(exp.title)
+            const text = pick(exp.text)
             return (
               <article
-                key={exp.titleKey}
+                key={exp.id}
                 className="group relative overflow-hidden rounded-lg border border-line reveal"
               >
                 <SafeImage
-                  src={exp.src}
+                  src={exp.imageUrl}
                   alt={title}
                   className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                {/* gradient + text overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6">
                   <h3 className="font-serif text-xl text-cream">{title}</h3>

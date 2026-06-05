@@ -1,40 +1,31 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import SafeImage from './SafeImage'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useContent } from '../content/ContentContext'
 
-// ============================================================
-// GALLERY IMAGES — EDIT THIS ARRAY TO CHANGE THE GALLERY.
-// Put the real gallery images inside: public/images/gallery/
-//
-// There are 27 photos (gallery-1.jpg ... gallery-27.jpg). They're generated
-// automatically below. To change an image's caption, edit the `captions`
-// object — anything without a custom caption gets a generic alt text.
-// ============================================================
-const TOTAL_PHOTOS = 27
+// Fallback shown when the blob's gallery array is empty. Keeps the site
+// looking the same as before until the admin uploads real photos.
+const FALLBACK_PHOTOS = Array.from({ length: 27 }, (_, i) => ({
+  src: `/images/gallery/gallery-${i + 1}.jpg`,
+  alt: `Emanuel Aciar private chef gallery photo ${i + 1}`,
+}))
 
-// Optional custom captions per photo number (used for accessibility / SEO).
-const captions = {
-  1: 'Private chef plating a dish',
-  2: 'Elegant private dinner setup',
-  3: 'Fresh seasonal ingredients',
-}
-
-const galleryImages = Array.from({ length: TOTAL_PHOTOS }, (_, i) => {
-  const n = i + 1
-  return {
-    src: `/images/gallery/gallery-${n}.jpg`,
-    alt: captions[n] || `Emanuel Aciar private chef gallery photo ${n}`,
-  }
-})
-
-// How many to show initially, and how many more per "Load More" click.
 const INITIAL_COUNT = 6
 const STEP = 6
 
 export default function Gallery() {
   const { t } = useLanguage()
+  const { content } = useContent()
+
+  const galleryImages = useMemo(() => {
+    const fromContent = (content.gallery || []).map((g) => ({
+      src: g.url,
+      alt: g.alt || 'Emanuel Aciar private chef gallery photo',
+    }))
+    return fromContent.length > 0 ? fromContent : FALLBACK_PHOTOS
+  }, [content.gallery])
+
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT)
-  // Index of the photo open in the lightbox, or null when closed.
   const [activeIndex, setActiveIndex] = useState(null)
 
   const visible = galleryImages.slice(0, visibleCount)

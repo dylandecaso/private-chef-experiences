@@ -1,22 +1,23 @@
 // Floating WhatsApp button — fixed bottom-right, opens WhatsApp with a
-// prefilled message. Edit the number / message in src/components/contact.js.
-import { whatsappUrl } from './contact'
+// prefilled message. Number + message live in the editable site content.
 import { useLanguage } from '../i18n/LanguageContext'
+import { useContent } from '../content/ContentContext'
+import { buildWhatsAppUrl } from '../lib/contactLinks'
 
 export default function WhatsAppButton() {
   const { t } = useLanguage()
+  const { content } = useContent()
+  const href = buildWhatsAppUrl(content.contact)
 
   return (
     <a
-      href={whatsappUrl}
+      href={href}
       target="_blank"
       rel="noreferrer"
       aria-label={t('footer.whatsapp')}
       className="group fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg shadow-black/40 transition-transform hover:scale-110"
     >
-      {/* gentle pulsing ring */}
       <span className="animate-soft-pulse absolute inline-flex h-full w-full rounded-full bg-[#25D366]" />
-      {/* WhatsApp glyph */}
       <svg
         viewBox="0 0 24 24"
         className="relative h-8 w-8 fill-white"

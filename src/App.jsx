@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Services from './components/Services'
@@ -9,6 +10,8 @@ import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 import { LanguageProvider } from './i18n/LanguageContext'
+import { ContentProvider } from './content/ContentContext'
+import AdminApp from './admin/AdminApp'
 
 // Adds the .is-visible class to every .reveal element as it scrolls into
 // view, triggering the subtle fade-in animation defined in index.css.
@@ -31,11 +34,10 @@ function useReveal() {
   }, [])
 }
 
-export default function App() {
+function PublicSite() {
   useReveal()
-
   return (
-    <LanguageProvider>
+    <>
       <Header />
       <main>
         <Hero />
@@ -47,6 +49,19 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppButton />
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <ContentProvider>
+        <Routes>
+          <Route path="/admin/*" element={<AdminApp />} />
+          <Route path="*" element={<PublicSite />} />
+        </Routes>
+      </ContentProvider>
     </LanguageProvider>
   )
 }

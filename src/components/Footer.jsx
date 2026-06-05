@@ -1,10 +1,14 @@
-import { navLinks } from './navLinks'
-import { contact, whatsappUrl } from './contact'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useContent } from '../content/ContentContext'
+import { buildWhatsAppUrl } from '../lib/contactLinks'
 import ContactForm from './ContactForm'
 
 export default function Footer() {
   const { t } = useLanguage()
+  const { content } = useContent()
+  const contact = content.contact
+  const whatsappUrl = buildWhatsAppUrl(contact)
 
   return (
     <footer id="contact" className="border-t border-line bg-ink">
@@ -87,9 +91,14 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <p className="mx-auto max-w-7xl px-5 py-6 text-center text-xs tracking-wide text-muted lg:px-8">
-          © {new Date().getFullYear()} PRIVATE CHEF experiences. {t('footer.rights')}
-        </p>
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-5 py-6 text-center text-xs tracking-wide text-muted lg:flex-row lg:justify-between lg:px-8">
+          <p>
+            © {new Date().getFullYear()} PRIVATE CHEF experiences. {t('footer.rights')}
+          </p>
+          <Link to="/admin" className="opacity-50 transition-opacity hover:opacity-100 hover:text-gold">
+            Admin
+          </Link>
+        </div>
       </div>
     </footer>
   )

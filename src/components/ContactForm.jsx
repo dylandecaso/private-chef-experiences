@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useContent } from '../content/ContentContext'
 
 const SERVICE_KEYS = [
   'privateDinner',
@@ -20,6 +21,8 @@ const initialState = {
 
 export default function ContactForm() {
   const { t, lang } = useLanguage()
+  const { content } = useContent()
+  const pick = (field) => field?.[lang] ?? field?.en ?? ''
   const [form, setForm] = useState(initialState)
   const [status, setStatus] = useState('idle') // idle | sending | success | error
 
@@ -51,10 +54,10 @@ export default function ContactForm() {
   return (
     <div>
       <h3 className="text-sm uppercase tracking-[0.3em] text-gold">
-        {t('contactForm.title')}
+        {pick(content.contactForm.title) || t('contactForm.title')}
       </h3>
       <p className="mt-3 text-xs leading-relaxed text-muted">
-        {t('contactForm.subtitle')}
+        {pick(content.contactForm.subtitle) || t('contactForm.subtitle')}
       </p>
 
       <form onSubmit={onSubmit} className="mt-5 space-y-3" noValidate>

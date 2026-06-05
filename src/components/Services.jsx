@@ -1,6 +1,6 @@
 import { useLanguage } from '../i18n/LanguageContext'
+import { useContent } from '../content/ContentContext'
 
-// Simple line icons (stroke = currentColor so they inherit the gold accent).
 const icons = {
   dinner: (
     <path d="M3 3v8a3 3 0 0 0 3 3v7M6 3v6M9 3v6M9 3v8m9-8c-1.7 0-3 2.2-3 5s1.3 4 3 4v6" />
@@ -20,30 +20,23 @@ const icons = {
   home: <path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6" />,
 }
 
-const services = [
-  { icon: 'dinner', titleKey: 'dinnerTitle', textKey: 'dinnerText' },
-  { icon: 'prep', titleKey: 'prepTitle', textKey: 'prepText' },
-  { icon: 'events', titleKey: 'eventsTitle', textKey: 'eventsText' },
-  { icon: 'healthy', titleKey: 'healthyTitle', textKey: 'healthyText' },
-  { icon: 'home', titleKey: 'homeTitle', textKey: 'homeText' },
-]
-
 export default function Services() {
-  const { t } = useLanguage()
+  const { lang } = useLanguage()
+  const { content } = useContent()
+  const services = content.services
+  const pick = (field) => field?.[lang] ?? field?.en ?? ''
 
   return (
     <section id="services" className="bg-ink-2 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
-          <h2 className="font-serif text-3xl text-cream sm:text-4xl">
-            {t('services.title')}
-          </h2>
+          <h2 className="font-serif text-3xl text-cream sm:text-4xl">{pick(services.title)}</h2>
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
+          {services.items.map((s) => (
             <div
-              key={s.titleKey}
+              key={s.id}
               className="group rounded-lg border border-line bg-ink-3 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold reveal"
             >
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-line text-gold transition-colors group-hover:border-gold">
@@ -57,15 +50,11 @@ export default function Services() {
                   className="h-7 w-7"
                   aria-hidden="true"
                 >
-                  {icons[s.icon]}
+                  {icons[s.icon] || icons.dinner}
                 </svg>
               </div>
-              <h3 className="font-serif text-xl text-cream">
-                {t(`services.items.${s.titleKey}`)}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {t(`services.items.${s.textKey}`)}
-              </p>
+              <h3 className="font-serif text-xl text-cream">{pick(s.title)}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{pick(s.text)}</p>
             </div>
           ))}
         </div>

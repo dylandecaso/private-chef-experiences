@@ -4,7 +4,6 @@ import { useAuth } from './AuthContext'
 import { useContent } from '../content/ContentContext'
 import AdminLogin from './AdminLogin'
 import HeroEditor from './editors/HeroEditor'
-import AboutEditor from './editors/AboutEditor'
 import ServicesEditor from './editors/ServicesEditor'
 import ExperiencesEditor from './editors/ExperiencesEditor'
 import FinalCtaEditor from './editors/FinalCtaEditor'
@@ -13,7 +12,6 @@ import GalleryEditor from './editors/GalleryEditor'
 
 const SECTIONS = [
   { id: 'hero', label: 'Hero' },
-  { id: 'about', label: 'About' },
   { id: 'services', label: 'Services' },
   { id: 'experiences', label: 'Experiences' },
   { id: 'gallery', label: 'Gallery' },
@@ -104,7 +102,6 @@ export default function AdminApp() {
 
   let editor = null
   if (section === 'hero') editor = <HeroEditor value={draft.hero} onChange={(v) => update('hero', v)} />
-  else if (section === 'about') editor = <AboutEditor value={draft.about} onChange={(v) => update('about', v)} />
   else if (section === 'services') editor = <ServicesEditor value={draft.services} onChange={(v) => update('services', v)} />
   else if (section === 'experiences') editor = <ExperiencesEditor value={draft.experiences} onChange={(v) => update('experiences', v)} />
   else if (section === 'gallery') editor = <GalleryEditor value={draft.gallery} onChange={(v) => update('gallery', v)} />

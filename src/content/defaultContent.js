@@ -21,22 +21,6 @@ export const defaultContent = {
     videoUrl: '/videos/hero-desktop.mp4',
     posterUrl: '/images/hero1.png',
   },
-  about: {
-    eyebrow: { en: 'About', es: 'Sobre Mí' },
-    titleLine1: { en: 'Quality Ingredients.', es: 'Ingredientes de Calidad.' },
-    titleLine2: { en: 'Thoughtful Cuisine.', es: 'Cocina con Sentido.' },
-    titleLine3: { en: 'Meaningful Moments.', es: 'Momentos que Importan.' },
-    p1: {
-      en: 'Passionate culinary professional with experience in both kitchen and front-of-house roles. Trained in Argentina and developed professionally in the United States within high-level hospitality environments.',
-      es: 'Profesional culinario apasionado con experiencia tanto en cocina como en salón. Formado en Argentina y desarrollado profesionalmente en Estados Unidos dentro de entornos de hospitalidad de alto nivel.',
-    },
-    p2: {
-      en: 'Highly motivated to grow as a Private Chef, bringing creativity, dedication, and a strong work ethic. Committed to delivering exceptional culinary experiences while continuously learning and evolving.',
-      es: 'Altamente motivado para crecer como Chef Privado, aportando creatividad, dedicación y una sólida ética de trabajo. Comprometido a brindar experiencias culinarias excepcionales mientras continúa aprendiendo y evolucionando.',
-    },
-    cta: { en: 'Learn More', es: 'Conocer Más' },
-    imageUrl: '/images/about.jpg',
-  },
   services: {
     title: { en: 'Services', es: 'Servicios' },
     items: [

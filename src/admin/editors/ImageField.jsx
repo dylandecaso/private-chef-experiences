@@ -42,7 +42,17 @@ export default function ImageField({
     }
   }
 
-  const isVideo = (value || '').match(/\.(mp4|webm|mov)$/i)
+  // Detect by accept prop first (driven by the editor's intent) and fall
+  // back to the URL extension. Tolerant of Blob URLs with query strings
+  // or random suffixes appended by Vercel.
+  const isAudioAccept = accept.startsWith('audio/')
+  const isVideoAccept = accept.startsWith('video/')
+  const isAudio =
+    isAudioAccept || /\.(mp3|m4a|aac|wav|ogg|oga|weba)(\?|$)/i.test(value || '')
+  const isVideo =
+    !isAudio && (isVideoAccept || /\.(mp4|webm|mov)(\?|$)/i.test(value || ''))
+
+  const emptyLabel = isAudio ? 'No audio' : isVideo ? 'No video' : 'No image'
 
   return (
     <div>
@@ -51,14 +61,18 @@ export default function ImageField({
       </span>
       <div className="overflow-hidden rounded-md border border-line bg-ink-3">
         {value ? (
-          isVideo ? (
+          isAudio ? (
+            <div className="flex h-40 items-center justify-center px-3">
+              <audio src={value} controls preload="none" className="w-full" />
+            </div>
+          ) : isVideo ? (
             <video src={value} className="h-40 w-full object-cover" muted playsInline />
           ) : (
             <img src={value} alt="" className="h-40 w-full object-cover" />
           )
         ) : (
           <div className="flex h-40 items-center justify-center text-xs text-muted">
-            No image
+            {emptyLabel}
           </div>
         )}
       </div>

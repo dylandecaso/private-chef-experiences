@@ -1,5 +1,6 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import { useContent } from '../content/ContentContext'
+import HeroAudioButton from './HeroAudioButton'
 
 export default function Hero() {
   const { lang } = useLanguage()
@@ -28,9 +29,16 @@ export default function Hero() {
 
       <div className="relative mx-auto w-full max-w-7xl px-5 py-28 lg:px-8 lg:py-32">
         <div className="max-w-xl reveal lg:ml-0 lg:mr-auto lg:w-[48%] lg:max-w-none">
-          <p className="mb-6 text-sm uppercase tracking-[0.4em] text-gold">
-            {pick(hero.eyebrow)}
-          </p>
+          {/* Eyebrow + audio chip. `items-start` + `shrink-0` (inside the
+              chip) keep the layout sane on narrow viewports if the eyebrow
+              wraps to a second line. `flex-wrap` lets the chip fall to a
+              new line gracefully instead of squishing the text. */}
+          <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <p className="text-sm uppercase tracking-[0.4em] text-gold">
+              {pick(hero.eyebrow)}
+            </p>
+            <HeroAudioButton audioEn={hero.audioEn} audioEs={hero.audioEs} />
+          </div>
           <div className="max-w-xl space-y-4 text-base leading-relaxed text-muted sm:text-lg">
             <p>{pick(hero.p1)}</p>
             <p>{pick(hero.p2)}</p>

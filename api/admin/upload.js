@@ -30,6 +30,17 @@ export default async function handler(req, res) {
           'image/gif',
           'video/mp4',
           'video/webm',
+          // Audio for the Hero narration. Includes Safari's `audio/x-m4a`
+          // and `audio/aac` from Android browsers — both have been observed
+          // in the wild and silently rejected without them.
+          'audio/mpeg',
+          'audio/mp4',
+          'audio/x-m4a',
+          'audio/aac',
+          'audio/wav',
+          'audio/x-wav',
+          'audio/ogg',
+          'audio/webm',
         ],
         maximumSizeInBytes: 50 * 1024 * 1024, // 50 MB cap
         addRandomSuffix: true,

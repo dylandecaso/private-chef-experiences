@@ -20,6 +20,8 @@ export const defaultContent = {
     },
     videoUrl: '/videos/hero-desktop.mp4',
     posterUrl: '/images/hero1.png',
+    audioEn: '',
+    audioEs: '',
   },
   services: {
     title: { en: 'Services', es: 'Servicios' },

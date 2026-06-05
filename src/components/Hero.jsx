@@ -31,12 +31,7 @@ export default function Hero() {
           <p className="mb-6 text-sm uppercase tracking-[0.4em] text-gold">
             {pick(hero.eyebrow)}
           </p>
-          <h1 className="font-serif text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl">
-            {pick(hero.titleLine1)}
-            <br />
-            <span className="italic text-gold">{pick(hero.titleLine2)}</span>
-          </h1>
-          <div className="mt-6 max-w-xl space-y-4 text-base leading-relaxed text-muted sm:text-lg">
+          <div className="max-w-xl space-y-4 text-base leading-relaxed text-muted sm:text-lg">
             <p>{pick(hero.p1)}</p>
             <p>{pick(hero.p2)}</p>
             <p>{pick(hero.p3)}</p>

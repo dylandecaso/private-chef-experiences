@@ -7,8 +7,6 @@ export default function HeroEditor({ value, onChange }) {
     <div className="space-y-6">
       <h2 className="font-serif text-2xl text-cream">Hero</h2>
       <BilingualField label="Eyebrow" value={value.eyebrow} onChange={set('eyebrow')} />
-      <BilingualField label="Title (line 1)" value={value.titleLine1} onChange={set('titleLine1')} />
-      <BilingualField label="Title (line 2, gold)" value={value.titleLine2} onChange={set('titleLine2')} />
       <BilingualField label="Paragraph 1" value={value.p1} onChange={set('p1')} multiline rows={3} />
       <BilingualField label="Paragraph 2" value={value.p2} onChange={set('p2')} multiline rows={3} />
       <BilingualField label="Paragraph 3" value={value.p3} onChange={set('p3')} multiline rows={3} />

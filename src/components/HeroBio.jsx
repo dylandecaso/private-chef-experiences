@@ -1,5 +1,6 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import { useContent } from '../content/ContentContext'
+import HeroAudioButton from './HeroAudioButton'
 
 // Section pulled out of the Hero so the bio copy doesn't fight the video
 // background for legibility. Rendered between Hero and Services.
@@ -43,6 +44,11 @@ export default function HeroBio() {
       ) : null}
 
       <div className="relative mx-auto max-w-3xl px-5 text-center reveal lg:px-8">
+        {/* Bio narration moved here from the Hero — it belongs next to the
+            bio copy it reads. Sits above the first paragraph. */}
+        <div className="mb-8 flex justify-center">
+          <HeroAudioButton audioEn={hero.audioEn} audioEs={hero.audioEs} />
+        </div>
         <div
           className="space-y-6 text-base leading-relaxed text-cream/90 sm:text-lg"
           style={bioVideo ? { textShadow: '0 1px 12px rgba(0,0,0,0.6)' } : undefined}

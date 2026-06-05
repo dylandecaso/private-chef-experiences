@@ -1,6 +1,5 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import { useContent } from '../content/ContentContext'
-import HeroAudioButton from './HeroAudioButton'
 
 // Bilingual fallbacks for the CTA copy. The eyebrow + CTA are the only
 // text on the Hero now, so we keep the button label inline (not in
@@ -39,12 +38,9 @@ export default function Hero() {
       <div className="absolute inset-0 bg-ink/35" />
 
       <div className="relative mx-auto w-full max-w-3xl px-5 text-center reveal lg:px-8">
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
-          <p className="text-sm uppercase tracking-[0.4em] text-gold sm:text-base">
-            {pick(hero.eyebrow)}
-          </p>
-          <HeroAudioButton audioEn={hero.audioEn} audioEs={hero.audioEs} />
-        </div>
+        <p className="text-sm uppercase tracking-[0.4em] text-gold sm:text-base">
+          {pick(hero.eyebrow)}
+        </p>
         <a
           href="#contact"
           className="hero-cta mt-10 inline-block rounded-full px-10 py-4 text-sm font-medium tracking-wide sm:text-base"

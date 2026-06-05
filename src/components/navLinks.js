@@ -3,7 +3,6 @@
 // `key` maps to the translations file (src/i18n/translations.js → nav.*).
 export const navLinks = [
   { key: 'home', href: '#home' },
-  { key: 'about', href: '#about' },
   { key: 'services', href: '#services' },
   { key: 'experiences', href: '#experiences' },
   { key: 'gallery', href: '#gallery' },

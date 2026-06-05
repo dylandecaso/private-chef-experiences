@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Services from './components/Services'
-import About from './components/About'
 import Experiences from './components/Experiences'
 import Gallery from './components/Gallery'
 import FinalCTA from './components/FinalCTA'
@@ -42,7 +41,6 @@ function PublicSite() {
       <main>
         <Hero />
         <Services />
-        <About />
         <Experiences />
         <Gallery />
         <FinalCTA />

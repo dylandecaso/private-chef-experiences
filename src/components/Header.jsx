@@ -55,7 +55,11 @@ export default function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? 'bg-ink/80 backdrop-blur-md' : 'bg-transparent'
+        open
+          ? 'bg-ink/95 backdrop-blur-md'
+          : scrolled
+            ? 'bg-ink/80 backdrop-blur-md'
+            : 'bg-transparent'
       }`}
     >
       <nav

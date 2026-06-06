@@ -81,7 +81,7 @@ export default function Header() {
             <span className="whitespace-nowrap font-serif text-[clamp(0.6rem,3vw,1.05rem)] font-medium tracking-normal text-cream sm:text-xl sm:tracking-[0.2em]">
               {t('brand.name')}
             </span>
-            <span className="hidden whitespace-nowrap text-[0.55rem] uppercase tracking-[0.34em] text-gold/90 sm:block sm:text-[0.65rem] lg:hidden xl:block">
+            <span className="block whitespace-nowrap text-[clamp(0.34rem,1.6vw,0.65rem)] uppercase tracking-[0.04em] text-gold/90 sm:tracking-[0.34em] lg:hidden xl:block">
               {t('brand.tagline')}
             </span>
           </span>

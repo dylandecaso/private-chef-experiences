@@ -61,7 +61,7 @@ export default function Header() {
       }`}
     >
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:gap-6 lg:px-6 xl:gap-8 xl:px-8"
         aria-label="Primary"
       >
         {/* Logo */}
@@ -80,22 +80,22 @@ export default function Header() {
           {/* thin gold divider */}
           <span className="h-9 w-px bg-line sm:h-10" aria-hidden="true" />
           <span className="flex flex-col gap-1 leading-none">
-            <span className="font-serif text-lg font-medium tracking-[0.2em] text-cream sm:text-xl">
+            <span className="whitespace-nowrap font-serif text-lg font-medium tracking-[0.2em] text-cream sm:text-xl">
               {t('brand.name')}
             </span>
-            <span className="text-[0.55rem] uppercase tracking-[0.34em] text-gold/90 sm:text-[0.65rem]">
+            <span className="whitespace-nowrap text-[0.55rem] uppercase tracking-[0.34em] text-gold/90 sm:text-[0.65rem] lg:hidden xl:block">
               {t('brand.tagline')}
             </span>
           </span>
         </a>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="hidden items-center gap-4 lg:flex xl:gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm tracking-wide text-muted transition-colors hover:text-gold"
+                className="whitespace-nowrap text-sm tracking-normal text-muted transition-colors hover:text-gold xl:tracking-wide"
               >
                 {t(`nav.${link.key}`)}
               </a>
@@ -104,11 +104,11 @@ export default function Header() {
         </ul>
 
         {/* Desktop right cluster: language toggle + CTA */}
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-3 lg:flex xl:gap-4">
           <LangToggle />
           <a
             href="#contact"
-            className="rounded-full border border-gold px-6 py-2.5 text-sm tracking-wide text-gold transition-all hover:bg-gold hover:text-ink"
+            className="whitespace-nowrap rounded-full border border-gold px-4 py-2 text-xs tracking-wide text-gold transition-all hover:bg-gold hover:text-ink xl:px-6 xl:py-2.5 xl:text-sm"
           >
             {t('nav.bookCta')}
           </a>

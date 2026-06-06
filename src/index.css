@@ -129,3 +129,119 @@ body {
   background: var(--color-bronze);
   border-radius: 8px;
 }
+
+/* ============================================================
+   Mobile cinematic hero pan (<= 767px).
+   On phones the hero pins (sticky) and the background video pans
+   left -> right via translate3d (compositor-only, so the video keeps
+   playing — it is never paused). Desktop / tablet (>= 768px) is left
+   exactly as before: the base rules below reproduce the original hero
+   (relative flex min-h-screen centered, full-bleed object-cover
+   object-left video), and the JS pan effect is a no-op above 767px.
+   ============================================================ */
+.hero-pan-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+/* On desktop the sticky stage is an inert wrapper (no box), so the
+   absolute video/overlays resolve against .hero-pan-track exactly like
+   the original markup. */
+.hero-pan-stage {
+  display: contents;
+}
+.hero-pan-video {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
+@media (max-width: 767px) {
+  .hero-pan-track {
+    display: block;
+    align-items: initial;
+    justify-content: initial;
+    min-height: 0;
+    height: 250vh; /* fallback for browsers without svh */
+    overflow: visible; /* let the inner stage sticky-pin */
+  }
+  .hero-pan-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  /* Intrinsically wider than the viewport (landscape video, portrait
+     viewport): anchored top-left, natural width, panned via transform. */
+  .hero-pan-video {
+    inset: 0 auto auto 0;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+  @supports (height: 100svh) {
+    .hero-pan-track {
+      height: 250svh;
+    }
+    .hero-pan-stage {
+      height: 100svh;
+    }
+  }
+  /* Landscape / negligible horizontal overflow: no dead scroll, and the
+     video fills normally (object-cover) instead of leaving a side gap. */
+  .hero-pan-track.is-pan-disabled {
+    height: 100vh;
+  }
+  @supports (height: 100svh) {
+    .hero-pan-track.is-pan-disabled {
+      height: 100svh;
+    }
+  }
+  .hero-pan-track.is-pan-disabled .hero-pan-video {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    transform: none;
+  }
+}
+
+/* Reduced motion: collapse the runway and show a plain full-bleed hero. */
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .hero-pan-track {
+    min-height: 0;
+    height: 100vh;
+  }
+  .hero-pan-stage {
+    position: static;
+    height: 100vh;
+  }
+  .hero-pan-video {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    transform: none !important;
+  }
+  @supports (height: 100svh) {
+    .hero-pan-track {
+      height: 100svh;
+    }
+    .hero-pan-stage {
+      height: 100svh;
+    }
+  }
+}

@@ -21,8 +21,10 @@ export default function Hero() {
       id="home"
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
+      {/* object-left anchors the left edge (the chef) so narrower screens
+          crop from the right instead of cutting into the chef. */}
       <video
-        className="absolute inset-0 h-full w-full object-cover object-center"
+        className="absolute inset-0 h-full w-full object-cover object-left"
         src={hero.videoUrl}
         poster={hero.posterUrl}
         autoPlay

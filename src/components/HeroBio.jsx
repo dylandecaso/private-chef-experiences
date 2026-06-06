@@ -22,10 +22,12 @@ export default function HeroBio() {
   return (
     <section className="relative overflow-hidden bg-ink py-24 lg:py-32">
       {bioVideo && (
+        // object-bottom keeps the flames (which rise from the bottom of the
+        // clip) anchored to the bottom edge, so they're never cropped off
+        // when the section is shorter than the video.
         <video
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-bottom"
           src={bioVideo}
-          poster={hero.posterUrl}
           autoPlay
           muted
           loop

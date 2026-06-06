@@ -54,10 +54,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
-        scrolled
-          ? 'border-line bg-ink/80 backdrop-blur-md'
-          : 'border-transparent bg-transparent'
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled ? 'bg-ink/80 backdrop-blur-md' : 'bg-transparent'
       }`}
     >
       <nav
@@ -65,11 +63,11 @@ export default function Header() {
         aria-label="Primary"
       >
         {/* Logo */}
-        <a href="#home" className="group flex items-center gap-3 sm:gap-4">
+        <a href="#home" className="group flex min-w-0 items-center gap-2.5 sm:gap-4">
           {/* Chef hat icon */}
           <svg
             viewBox="0 0 24 24"
-            className="h-9 w-9 shrink-0 fill-gold transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10"
+            className="h-8 w-8 shrink-0 fill-gold transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10"
             aria-hidden="true"
           >
             <path
@@ -78,12 +76,12 @@ export default function Header() {
             />
           </svg>
           {/* thin gold divider */}
-          <span className="h-9 w-px bg-line sm:h-10" aria-hidden="true" />
-          <span className="flex flex-col gap-1 leading-none">
-            <span className="whitespace-nowrap font-serif text-lg font-medium tracking-[0.2em] text-cream sm:text-xl">
+          <span className="h-8 w-px bg-line sm:h-10" aria-hidden="true" />
+          <span className="flex min-w-0 flex-col gap-1 leading-none">
+            <span className="truncate font-serif text-xs font-medium tracking-[0.05em] text-cream sm:whitespace-nowrap sm:text-xl sm:tracking-[0.2em]">
               {t('brand.name')}
             </span>
-            <span className="whitespace-nowrap text-[0.55rem] uppercase tracking-[0.34em] text-gold/90 sm:text-[0.65rem] lg:hidden xl:block">
+            <span className="hidden whitespace-nowrap text-[0.55rem] uppercase tracking-[0.34em] text-gold/90 sm:block sm:text-[0.65rem] lg:hidden xl:block">
               {t('brand.tagline')}
             </span>
           </span>
@@ -115,7 +113,7 @@ export default function Header() {
         </div>
 
         {/* Mobile right cluster: language toggle + menu */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
           <LangToggle />
           <button
             type="button"
@@ -149,7 +147,7 @@ export default function Header() {
 
       {/* Mobile dropdown menu */}
       <div
-        className={`overflow-hidden border-t border-line bg-ink/95 backdrop-blur-md transition-[max-height] duration-300 ease-out lg:hidden ${
+        className={`overflow-hidden bg-ink/95 backdrop-blur-md transition-[max-height] duration-300 ease-out lg:hidden ${
           open ? 'max-h-96' : 'max-h-0'
         }`}
       >

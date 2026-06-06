@@ -78,7 +78,7 @@ export default function Header() {
           {/* thin gold divider */}
           <span className="h-8 w-px bg-line sm:h-10" aria-hidden="true" />
           <span className="flex min-w-0 flex-col gap-1 leading-none">
-            <span className="truncate font-serif text-xs font-medium tracking-[0.05em] text-cream sm:whitespace-nowrap sm:text-xl sm:tracking-[0.2em]">
+            <span className="whitespace-nowrap font-serif text-[clamp(0.6rem,3vw,1.05rem)] font-medium tracking-normal text-cream sm:text-xl sm:tracking-[0.2em]">
               {t('brand.name')}
             </span>
             <span className="hidden whitespace-nowrap text-[0.55rem] uppercase tracking-[0.34em] text-gold/90 sm:block sm:text-[0.65rem] lg:hidden xl:block">

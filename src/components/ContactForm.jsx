@@ -19,6 +19,39 @@ const initialState = {
   service: '',
 }
 
+// Inputs use 16px on mobile (text-base) so iOS Safari doesn't auto-zoom on
+// focus, dropping to 14px (sm:text-sm) on larger screens. Extra top padding
+// (pt-5) reserves room for the floating label to sit inside the field.
+const fieldClass =
+  'peer w-full rounded-md border border-line bg-ink-3 px-3 pb-2 pt-5 text-base text-cream outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/40 sm:text-sm'
+
+// Floating label: behaves like a placeholder when the field is empty and
+// unfocused, then floats up to a small gold caption on focus or once filled.
+// Driven purely by CSS via the input's `peer` + `placeholder=" "`.
+const labelClass =
+  'pointer-events-none absolute left-3 top-1.5 text-xs text-gold/80 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted/70 peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-gold'
+
+function FloatingField({ id, name, label, type = 'text', required = false, value, onChange }) {
+  return (
+    <div className="relative">
+      <input
+        id={id}
+        name={name}
+        type={type}
+        required={required}
+        value={value}
+        onChange={onChange}
+        placeholder=" "
+        className={fieldClass}
+      />
+      <label htmlFor={id} className={labelClass}>
+        {label}
+        {required && <span aria-hidden="true"> *</span>}
+      </label>
+    </div>
+  )
+}
+
 export default function ContactForm() {
   const { t, lang } = useLanguage()
   const { content } = useContent()
@@ -48,9 +81,6 @@ export default function ContactForm() {
     }
   }
 
-  const inputClass =
-    'w-full rounded-md border border-line bg-ink-3 px-3 py-2 text-sm text-cream placeholder-muted/60 outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/40'
-
   return (
     <div>
       <h3 className="text-sm uppercase tracking-[0.3em] text-gold">
@@ -62,66 +92,70 @@ export default function ContactForm() {
 
       <form onSubmit={onSubmit} className="mt-5 space-y-3" noValidate>
         <div className="grid grid-cols-2 gap-2">
-          <input
-            type="text"
+          <FloatingField
+            id="firstName"
             name="firstName"
+            label={t('contactForm.firstName')}
             required
             value={form.firstName}
             onChange={onChange}
-            placeholder={t('contactForm.firstName')}
-            aria-label={t('contactForm.firstName')}
-            className={inputClass}
           />
-          <input
-            type="text"
+          <FloatingField
+            id="lastName"
             name="lastName"
+            label={t('contactForm.lastName')}
             required
             value={form.lastName}
             onChange={onChange}
-            placeholder={t('contactForm.lastName')}
-            aria-label={t('contactForm.lastName')}
-            className={inputClass}
           />
         </div>
 
-        <input
-          type="email"
+        <FloatingField
+          id="email"
           name="email"
+          type="email"
+          label={t('contactForm.email')}
           required
           value={form.email}
           onChange={onChange}
-          placeholder={t('contactForm.email')}
-          aria-label={t('contactForm.email')}
-          className={inputClass}
         />
 
-        <input
-          type="tel"
+        <FloatingField
+          id="phone"
           name="phone"
+          type="tel"
+          label={t('contactForm.phone')}
           value={form.phone}
           onChange={onChange}
-          placeholder={t('contactForm.phone')}
-          aria-label={t('contactForm.phone')}
-          className={inputClass}
         />
 
-        <select
-          name="service"
-          required
-          value={form.service}
-          onChange={onChange}
-          aria-label={t('contactForm.service')}
-          className={`${inputClass} ${form.service ? '' : 'text-muted/60'}`}
-        >
-          <option value="" disabled>
-            {t('contactForm.servicePlaceholder')}
-          </option>
-          {SERVICE_KEYS.map((key) => (
-            <option key={key} value={key} className="text-cream">
-              {t(`contactForm.services.${key}`)}
+        {/* Select keeps a persistent floating label (native selects have no
+            placeholder-shown state to drive the float). */}
+        <div className="relative">
+          <select
+            id="service"
+            name="service"
+            required
+            value={form.service}
+            onChange={onChange}
+            className={`${fieldClass} ${form.service ? 'text-cream' : 'text-muted/60'}`}
+          >
+            <option value="" disabled>
+              {t('contactForm.servicePlaceholder')}
             </option>
-          ))}
-        </select>
+            {SERVICE_KEYS.map((key) => (
+              <option key={key} value={key} className="text-cream">
+                {t(`contactForm.services.${key}`)}
+              </option>
+            ))}
+          </select>
+          <label
+            htmlFor="service"
+            className="pointer-events-none absolute left-3 top-1.5 text-xs text-gold/80"
+          >
+            {t('contactForm.service')} <span aria-hidden="true">*</span>
+          </label>
+        </div>
 
         <button
           type="submit"
@@ -132,18 +166,12 @@ export default function ContactForm() {
         </button>
 
         {status === 'success' && (
-          <p
-            role="status"
-            className="text-xs leading-relaxed text-gold"
-          >
+          <p role="status" className="text-xs leading-relaxed text-gold">
             {t('contactForm.success')}
           </p>
         )}
         {status === 'error' && (
-          <p
-            role="alert"
-            className="text-xs leading-relaxed text-red-400"
-          >
+          <p role="alert" className="text-xs leading-relaxed text-red-400">
             {t('contactForm.error')}
           </p>
         )}

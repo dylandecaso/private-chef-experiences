@@ -18,13 +18,14 @@ export default function Experiences() {
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {experiences.items.map((exp) => {
+          {experiences.items.map((exp, i) => {
             const title = pick(exp.title)
             const text = pick(exp.text)
             return (
               <article
                 key={exp.id}
                 className="group relative overflow-hidden rounded-lg border border-line reveal"
+                style={{ transitionDelay: `${i * 70}ms` }}
               >
                 <SafeImage
                   src={exp.imageUrl}

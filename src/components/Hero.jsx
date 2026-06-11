@@ -11,7 +11,7 @@ const CTA_LABEL = {
 }
 
 export default function Hero() {
-  const { lang } = useLanguage()
+  const { lang, t } = useLanguage()
   const { content } = useContent()
   const hero = content.hero
   const pick = (field) => field?.[lang] ?? field?.en ?? ''
@@ -166,6 +166,12 @@ export default function Hero() {
         <div className="absolute inset-0 bg-ink/35" />
 
         <div className="relative mx-auto w-full max-w-3xl px-5 text-center reveal lg:px-8">
+          {/* Accessible + SEO page heading. Visually hidden to preserve the
+              intentionally minimal hero (eyebrow + CTA only), but gives the
+              page the single <h1> it was missing for screen readers/search. */}
+          <h1 className="sr-only">
+            {t('brand.name')} — {t('brand.tagline')}: {pick(hero.eyebrow)}
+          </h1>
           <p className="text-sm uppercase tracking-[0.4em] text-gold sm:text-base">
             {pick(hero.eyebrow)}
           </p>

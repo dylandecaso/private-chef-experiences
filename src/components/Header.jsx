@@ -5,6 +5,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeId, setActiveId] = useState('home')
   const { lang, setLang, t } = useLanguage()
 
   // Strengthen the glass background once the user scrolls past the hero top.
@@ -15,13 +16,33 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Scrollspy — highlight the nav link of the section currently crossing the
+  // vertical middle of the viewport. rootMargin shrinks the observer root to a
+  // thin centre band so exactly one section reads as "active" at a time.
+  useEffect(() => {
+    const sections = navLinks
+      .map((l) => document.getElementById(l.href.slice(1)))
+      .filter(Boolean)
+    if (sections.length === 0) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id)
+        })
+      },
+      { rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+    )
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [])
+
   const isEN = lang === 'en'
 
   // Small EN / ES segmented pill — each language is its own button with
   // its own hover state. The active one stays highlighted in gold.
   const LangToggle = ({ className = '' }) => {
     const baseSeg =
-      'rounded-full px-2.5 py-1 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60'
+      'rounded-full px-3 py-1.5 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60'
     const activeSeg = 'bg-gold/15 text-gold'
     const inactiveSeg = 'text-muted hover:bg-cream/5 hover:text-gold'
 
@@ -97,7 +118,12 @@ export default function Header() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="whitespace-nowrap text-sm tracking-normal text-muted transition-colors hover:text-gold xl:tracking-wide"
+                aria-current={activeId === link.href.slice(1) ? 'page' : undefined}
+                className={`whitespace-nowrap text-sm tracking-normal transition-colors xl:tracking-wide ${
+                  activeId === link.href.slice(1)
+                    ? 'text-gold'
+                    : 'text-muted hover:text-gold'
+                }`}
               >
                 {t(`nav.${link.key}`)}
               </a>
@@ -122,7 +148,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center text-cream"
+            className="flex h-11 w-11 items-center justify-center text-cream"
             aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
             aria-expanded={open}
           >
@@ -161,7 +187,12 @@ export default function Header() {
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block py-3 text-sm tracking-wide text-muted transition-colors hover:text-gold"
+                aria-current={activeId === link.href.slice(1) ? 'page' : undefined}
+                className={`block py-3 text-sm tracking-wide transition-colors ${
+                  activeId === link.href.slice(1)
+                    ? 'text-gold'
+                    : 'text-muted hover:text-gold'
+                }`}
               >
                 {t(`nav.${link.key}`)}
               </a>

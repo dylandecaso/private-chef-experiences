@@ -27,3 +27,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claude Code local config + installed skills (kept local, not versioned)
+.claude/

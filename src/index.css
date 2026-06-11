@@ -42,6 +42,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================================================
+   Keyboard focus — one consistent gold ring on the links and
+   buttons that were missing a visible focus state. :focus-visible
+   shows it only for keyboard / assistive-tech users (never on a
+   mouse click); :where() keeps specificity 0 so component styles
+   still win, and no border-radius is set here so pill buttons keep
+   their shape. Inputs/selects keep their own gold border+ring.
+   ============================================================ */
+:where(a, button, [role='button']):focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
 /* Subtle fade-in-on-scroll. Elements start as .reveal and get .is-visible
    added by an IntersectionObserver (see useReveal in App.jsx). */
 .reveal {
@@ -63,6 +76,39 @@ body {
   }
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   Services cards — "display cards" gesture (inspired by 21st.dev).
+   At rest each card is slightly skewed and desaturated (grayscale);
+   on hover it straightens, lifts, and colorizes — revealing the gold
+   accent. The scroll-in `.reveal` lives on a wrapper element so its
+   `transform: none` (when visible) doesn't clobber this skew.
+   Reduced motion keeps the color reveal but drops the skew/lift.
+   ============================================================ */
+.service-card {
+  transform: skewY(-2deg);
+  filter: grayscale(1);
+  transition:
+    transform 0.7s ease,
+    filter 0.7s ease,
+    background-color 0.4s ease,
+    border-color 0.4s ease;
+}
+.service-card:hover {
+  transform: skewY(0deg) translateY(-8px);
+  filter: grayscale(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-card {
+    transform: none;
+    transition:
+      filter 0.4s ease,
+      border-color 0.4s ease;
+  }
+  .service-card:hover {
+    transform: none;
   }
 }
 

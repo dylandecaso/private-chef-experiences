@@ -5,7 +5,7 @@ import { useContent } from '../content/ContentContext'
 
 // Fallback shown when the blob's gallery array is empty. Keeps the site
 // looking the same as before until the admin uploads real photos.
-const FALLBACK_PHOTOS = Array.from({ length: 27 }, (_, i) => ({
+const FALLBACK_PHOTOS = Array.from({ length: 46 }, (_, i) => ({
   src: `/images/gallery/gallery-${i + 1}.jpg`,
   alt: `Emanuel Aciar private chef gallery photo ${i + 1}`,
 }))

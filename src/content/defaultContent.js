@@ -125,12 +125,13 @@ export const defaultContent = {
     cta: { en: 'Contact Me', es: 'Contactame' },
   },
   contact: {
-    email: 'hello@privatechef.com',
+    email: 'privatechefexperiencee@gmail.com',
     phoneDisplay: '+1 (347) 219-5650',
     phoneTel: '+13472195650',
     phoneWhatsApp: '13472195650',
     instagram: '@privatechef_experiences',
     instagramUrl: 'https://instagram.com/privatechef_experiences',
+    location: 'New Jersey, USA',
     whatsappMessage: "Hi Chef! I'd like to book a private chef experience. Could we talk?",
   },
   contactForm: {
@@ -140,5 +141,12 @@ export const defaultContent = {
       es: 'Contame sobre tu evento y te respondo a la brevedad.',
     },
   },
-  gallery: [],
+  // Gallery seed: photos live in public/images/gallery (gallery-1.jpg …
+  // gallery-46.jpg). Populating this here makes them show on the site AND
+  // appear in the /admin Gallery editor, where each can be reordered,
+  // re-captioned, or deleted. A saved Blob gallery overrides this list.
+  gallery: Array.from({ length: 46 }, (_, i) => ({
+    url: `/images/gallery/gallery-${i + 1}.jpg`,
+    alt: `Emanuel Aciar private chef — gallery photo ${i + 1}`,
+  })),
 }

@@ -70,6 +70,7 @@ export default function Footer() {
                 {contact.instagram}
               </a>
             </li>
+            {contact.location && <li>{contact.location}</li>}
           </ul>
 
           {/* WhatsApp button with prefilled message */}

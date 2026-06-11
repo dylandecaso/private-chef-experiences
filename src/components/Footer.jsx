@@ -91,13 +91,29 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-5 py-6 text-center text-xs tracking-wide text-muted lg:flex-row lg:justify-between lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-5 py-6 text-center text-xs tracking-wide text-muted lg:flex-row lg:justify-between lg:px-8">
           <p>
             © {new Date().getFullYear()} PRIVATE CHEF experiences. {t('footer.rights')}
           </p>
-          <Link to="/admin" className="opacity-50 transition-opacity hover:opacity-100 hover:text-gold">
-            Admin
-          </Link>
+          <nav
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
+            aria-label="Legal"
+          >
+            <Link to="/privacy-policy" className="transition-colors hover:text-gold">
+              Privacy Policy
+            </Link>
+            <span aria-hidden="true" className="text-line">·</span>
+            <Link to="/terms-and-conditions" className="transition-colors hover:text-gold">
+              Terms &amp; Conditions
+            </Link>
+            <span aria-hidden="true" className="text-line">·</span>
+            <Link
+              to="/admin"
+              className="opacity-50 transition-opacity hover:text-gold hover:opacity-100"
+            >
+              Admin
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

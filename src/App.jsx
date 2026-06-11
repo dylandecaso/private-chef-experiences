@@ -12,6 +12,8 @@ import WhatsAppButton from './components/WhatsAppButton'
 import { LanguageProvider } from './i18n/LanguageContext'
 import { ContentProvider } from './content/ContentContext'
 import AdminApp from './admin/AdminApp'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsAndConditions from './pages/TermsAndConditions'
 
 // Adds the .is-visible class to every .reveal element as it scrolls into
 // view, triggering the subtle fade-in animation defined in index.css.
@@ -59,6 +61,8 @@ export default function App() {
       <ContentProvider>
         <Routes>
           <Route path="/admin/*" element={<AdminApp />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="*" element={<PublicSite />} />
         </Routes>
       </ContentProvider>

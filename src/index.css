@@ -112,6 +112,51 @@ body {
   }
 }
 
+/* ============================================================
+   Legal pages (Privacy Policy / Terms & Conditions) — readable,
+   on-brand long-form typography. Plain CSS using the brand tokens
+   so the page content stays clean semantic markup.
+   ============================================================ */
+.legal-content h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: var(--color-cream);
+  margin-top: 2.75rem;
+  margin-bottom: 0.85rem;
+}
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+.legal-content p {
+  color: var(--color-muted);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+.legal-content ul {
+  margin: 0 0 1.15rem;
+  padding-left: 1.3rem;
+  list-style: disc;
+  color: var(--color-muted);
+}
+.legal-content li {
+  margin-bottom: 0.45rem;
+  line-height: 1.7;
+}
+.legal-content a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+.legal-content a:hover {
+  color: var(--color-cream);
+}
+.legal-content strong {
+  color: var(--color-cream);
+  font-weight: 600;
+}
+
 /* Soft pulse for the floating WhatsApp ring — much gentler than animate-ping
    (small expansion, low opacity, slow). */
 @keyframes soft-pulse {

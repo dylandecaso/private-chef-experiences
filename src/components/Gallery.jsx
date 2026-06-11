@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import SafeImage from './SafeImage'
+import ZoomParallax from './ZoomParallax'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useContent } from '../content/ContentContext'
 
@@ -31,6 +32,9 @@ export default function Gallery() {
   const visible = galleryImages.slice(0, visibleCount)
   const hasMore = visibleCount < galleryImages.length
   const isOpen = activeIndex !== null
+
+  // First 7 photos feed the cinematic zoom-parallax showcase above the grid.
+  const parallaxImages = galleryImages.slice(0, 7)
 
   // --- Lightbox controls ---------------------------------------------------
   const openAt = (index) => setActiveIndex(index)
@@ -87,11 +91,19 @@ export default function Gallery() {
 
   return (
     <section id="gallery" className="bg-ink-2 py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center reveal">
-          <h2 className="font-serif text-3xl text-cream sm:text-4xl">{t('gallery.title')}</h2>
-        </div>
+      <div className="mx-auto max-w-2xl px-5 text-center reveal lg:px-8">
+        <h2 className="font-serif text-3xl text-cream sm:text-4xl">{t('gallery.title')}</h2>
+      </div>
 
+      {/* Cinematic zoom-parallax showcase — first 7 photos, full-bleed.
+          Renders null under prefers-reduced-motion (see ZoomParallax). */}
+      {parallaxImages.length > 0 && (
+        <div className="mt-12 lg:mt-16">
+          <ZoomParallax images={parallaxImages} />
+        </div>
+      )}
+
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
         {/* Responsive grid: 2 cols (mobile) / 2 (tablet) / 3 (desktop) */}
         <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3 lg:gap-6">
           {visible.map((item, i) => (

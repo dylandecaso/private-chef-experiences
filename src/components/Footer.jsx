@@ -60,16 +60,6 @@ export default function Footer() {
                 {contact.phoneDisplay}
               </a>
             </li>
-            <li>
-              <a
-                href={contact.instagramUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="transition-colors hover:text-gold"
-              >
-                {contact.instagram}
-              </a>
-            </li>
             {contact.location && <li>{contact.location}</li>}
           </ul>
 

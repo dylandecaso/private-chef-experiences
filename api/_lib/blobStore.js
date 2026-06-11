@@ -41,6 +41,13 @@ function mergeWithDefaults(parsed) {
       out[key] = { ...defaultContent[key], ...parsed[key] }
     }
   }
+  // If the stored gallery is missing or empty, fall back to the bundled default
+  // gallery so the site AND the /admin editor start from the seeded photos
+  // instead of an empty grid. Once the admin saves a non-empty gallery, that
+  // saved list takes over.
+  if (!Array.isArray(out.gallery) || out.gallery.length === 0) {
+    out.gallery = defaultContent.gallery
+  }
   return out
 }
 

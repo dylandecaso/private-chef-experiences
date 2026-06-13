@@ -10,12 +10,22 @@ const CTA_LABEL = {
   es: 'Reservar una Experiencia',
 }
 
+// Fallback headline used when the editable content has no title set (e.g. the
+// saved Blob has empty title fields) — the hero should never render headless.
+const HEADLINE_FALLBACK = {
+  en: { line1: 'Refined Mediterranean', line2: 'Culinary Experience' },
+  es: { line1: 'Experiencia Culinaria', line2: 'Mediterránea Refinada' },
+}
+
 export default function Hero() {
   const { lang } = useLanguage()
   const { content } = useContent()
   const hero = content.hero
   const pick = (field) => field?.[lang] ?? field?.en ?? ''
   const cta = CTA_LABEL[lang === 'es' ? 'es' : 'en']
+  const fb = HEADLINE_FALLBACK[lang === 'es' ? 'es' : 'en']
+  const titleLine1 = pick(hero.titleLine1) || fb.line1
+  const titleLine2 = pick(hero.titleLine2) || fb.line2
 
   const trackRef = useRef(null) // tall 250svh scroll runway (mobile only)
   const stageRef = useRef(null) // sticky top:0 viewport-height stage
@@ -177,8 +187,8 @@ export default function Hero() {
 
           {/* Editorial italic headline (the page's single visible h1) */}
           <h1 className="mt-7 font-serif text-4xl italic leading-[1.1] text-cream sm:text-5xl lg:text-[3.75rem]">
-            {pick(hero.titleLine1)}{' '}
-            <span className="text-champagne">{pick(hero.titleLine2)}</span>
+            {titleLine1}{' '}
+            <span className="text-champagne">{titleLine2}</span>
           </h1>
 
           {/* Cuisine tagline */}

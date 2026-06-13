@@ -92,14 +92,7 @@ export default function Gallery() {
   return (
     <section id="gallery" className="paper-texture py-24 lg:py-32">
       <div className="mx-auto max-w-2xl px-5 text-center reveal lg:px-8">
-        <div className="flex items-center justify-center gap-4">
-          <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
-          <p className="text-[0.7rem] uppercase tracking-[0.35em] text-warm-muted sm:text-xs">
-            Gallery
-          </p>
-          <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
-        </div>
-        <h2 className="mt-5 font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">{t('gallery.title')}</h2>
+        <h2 className="font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">{t('gallery.title')}</h2>
       </div>
 
       {/* Cinematic zoom-parallax showcase — first 7 photos, full-bleed.

@@ -12,15 +12,7 @@ export default function Experiences() {
     <section id="experiences" className="bg-paper-2 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
-          {/* Editorial label, flanked by thin hairlines */}
-          <div className="flex items-center justify-center gap-4">
-            <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
-            <p className="text-[0.7rem] uppercase tracking-[0.35em] text-warm-muted sm:text-xs">
-              Curated Experiences
-            </p>
-            <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
-          </div>
-          <h2 className="mt-6 font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">
             {pick(experiences.title)}
           </h2>
         </div>

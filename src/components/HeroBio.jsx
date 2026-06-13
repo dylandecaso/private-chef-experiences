@@ -20,7 +20,7 @@ export default function HeroBio() {
   const bioVideo = hero.bioVideoUrl
 
   return (
-    <section className="relative overflow-hidden bg-ink py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-green-deep py-24 lg:py-32">
       {bioVideo && (
         // object-bottom keeps the flames (which rise from the bottom of the
         // clip) anchored to the bottom edge, so they're never cropped off
@@ -40,8 +40,8 @@ export default function HeroBio() {
           the copy readable. Drops to a flat tint when there's no video. */}
       {bioVideo ? (
         <>
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/55 to-ink/85" />
-          <div className="absolute inset-0 bg-ink/30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-green-deep/85 via-green-deep/55 to-green-deep/85" />
+          <div className="absolute inset-0 bg-green-deep/25" />
         </>
       ) : null}
 
@@ -51,8 +51,18 @@ export default function HeroBio() {
         <div className="mb-8 flex justify-center">
           <HeroAudioButton audioEn={hero.audioEn} audioEs={hero.audioEs} />
         </div>
+
+        {/* Editorial label, flanked by thin champagne hairlines */}
+        <div className="mb-7 flex items-center justify-center gap-4">
+          <span className="hidden h-px w-10 bg-champagne/50 sm:block" aria-hidden="true" />
+          <p className="text-[0.7rem] uppercase tracking-[0.35em] text-champagne sm:text-xs">
+            The Chef
+          </p>
+          <span className="hidden h-px w-10 bg-champagne/50 sm:block" aria-hidden="true" />
+        </div>
+
         <div
-          className="space-y-6 text-base leading-relaxed text-cream/90 sm:text-lg"
+          className="space-y-6 text-base leading-relaxed text-cream/90 [&_strong]:text-champagne [&_em]:text-champagne sm:text-lg"
           style={bioVideo ? { textShadow: '0 1px 12px rgba(0,0,0,0.6)' } : undefined}
         >
           {paragraphs.map((p, i) => (

@@ -6,12 +6,12 @@ import { useContent } from '../content/ContentContext'
 // text on the Hero now, so we keep the button label inline (not in
 // translations.js) — they belong to this section, not the whole site.
 const CTA_LABEL = {
-  en: 'Book an Experience',
-  es: 'Reservar Experiencia',
+  en: 'Reserve an Experience',
+  es: 'Reservar una Experiencia',
 }
 
 export default function Hero() {
-  const { lang, t } = useLanguage()
+  const { lang } = useLanguage()
   const { content } = useContent()
   const hero = content.hero
   const pick = (field) => field?.[lang] ?? field?.en ?? ''
@@ -160,25 +160,33 @@ export default function Hero() {
           preload="auto"
         />
 
-        {/* Even fade across the whole Hero — the text is centered now, so we
-            drop the side gradient that used to darken the left half. */}
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/40 to-ink" />
-        <div className="absolute inset-0 bg-ink/35" />
+        {/* Warm editorial veil — deep-green / charcoal so the cream type stays
+            readable and the brand colour carries into the imagery. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/40 to-ink/85" />
+        <div className="absolute inset-0 bg-green-deep/20" />
 
         <div className="relative mx-auto w-full max-w-3xl px-5 text-center reveal lg:px-8">
-          {/* Accessible + SEO page heading. Visually hidden to preserve the
-              intentionally minimal hero (eyebrow + CTA only), but gives the
-              page the single <h1> it was missing for screen readers/search. */}
-          <h1 className="sr-only">
-            {t('brand.name')} — {t('brand.tagline')}: {pick(hero.eyebrow)}
+          {/* Editorial label, flanked by thin champagne hairlines */}
+          <div className="flex items-center justify-center gap-4">
+            <span className="hidden h-px w-10 bg-champagne/50 sm:block" aria-hidden="true" />
+            <p className="text-[0.7rem] uppercase tracking-[0.42em] text-champagne sm:text-xs">
+              Private Chef · New Jersey
+            </p>
+            <span className="hidden h-px w-10 bg-champagne/50 sm:block" aria-hidden="true" />
+          </div>
+
+          {/* Editorial italic headline (the page's single visible h1) */}
+          <h1 className="mt-7 font-serif text-4xl italic leading-[1.1] text-cream sm:text-5xl lg:text-[3.75rem]">
+            {pick(hero.titleLine1)}{' '}
+            <span className="text-champagne">{pick(hero.titleLine2)}</span>
           </h1>
-          <p className="text-sm uppercase tracking-[0.4em] text-gold sm:text-base">
+
+          {/* Cuisine tagline */}
+          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed tracking-wide text-cream/75">
             {pick(hero.eyebrow)}
           </p>
-          <a
-            href="#contact"
-            className="hero-cta mt-10 inline-block rounded-full px-10 py-4 text-sm font-medium tracking-wide sm:text-base"
-          >
+
+          <a href="#contact" className="btn-hero mt-10">
             {cta}
           </a>
         </div>

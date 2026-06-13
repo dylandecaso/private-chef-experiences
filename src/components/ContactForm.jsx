@@ -23,13 +23,13 @@ const initialState = {
 // focus, dropping to 14px (sm:text-sm) on larger screens. Extra top padding
 // (pt-5) reserves room for the floating label to sit inside the field.
 const fieldClass =
-  'peer w-full rounded-md border border-line bg-ink-3 px-3 pb-2 pt-5 text-base text-cream outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/40 sm:text-sm'
+  'peer w-full rounded-md border border-hairline-light bg-green-deep/40 px-3 pb-2 pt-5 text-base text-cream outline-none transition-colors focus:border-champagne focus:ring-1 focus:ring-champagne/30 sm:text-sm'
 
 // Floating label: behaves like a placeholder when the field is empty and
-// unfocused, then floats up to a small gold caption on focus or once filled.
+// unfocused, then floats up to a small champagne caption on focus or once filled.
 // Driven purely by CSS via the input's `peer` + `placeholder=" "`.
 const labelClass =
-  'pointer-events-none absolute left-3 top-1.5 text-xs text-gold/80 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-muted/70 peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-gold'
+  'pointer-events-none absolute left-3 top-1.5 text-xs text-champagne transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-cream/50 peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-champagne'
 
 function FloatingField({ id, name, label, type = 'text', required = false, value, onChange }) {
   return (
@@ -83,10 +83,10 @@ export default function ContactForm() {
 
   return (
     <div>
-      <h3 className="text-sm uppercase tracking-[0.3em] text-gold">
+      <h3 className="text-sm uppercase tracking-[0.3em] text-champagne">
         {pick(content.contactForm.title) || t('contactForm.title')}
       </h3>
-      <p className="mt-3 text-xs leading-relaxed text-muted">
+      <p className="mt-3 text-xs leading-relaxed text-cream/70">
         {pick(content.contactForm.subtitle) || t('contactForm.subtitle')}
       </p>
 
@@ -138,7 +138,7 @@ export default function ContactForm() {
             required
             value={form.service}
             onChange={onChange}
-            className={`${fieldClass} ${form.service ? 'text-cream' : 'text-muted/60'}`}
+            className={`${fieldClass} ${form.service ? 'text-cream' : 'text-cream/50'}`}
           >
             <option value="" disabled>
               {t('contactForm.servicePlaceholder')}
@@ -151,7 +151,7 @@ export default function ContactForm() {
           </select>
           <label
             htmlFor="service"
-            className="pointer-events-none absolute left-3 top-1.5 text-xs text-gold/80"
+            className="pointer-events-none absolute left-3 top-1.5 text-xs text-champagne"
           >
             {t('contactForm.service')} <span aria-hidden="true">*</span>
           </label>
@@ -160,18 +160,18 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="w-full rounded-full bg-gold px-6 py-2.5 text-sm font-medium tracking-wide text-ink transition-all hover:bg-cream disabled:cursor-not-allowed disabled:opacity-70"
+          className="w-full rounded-full bg-champagne px-6 py-2.5 text-sm font-medium tracking-wide text-green-deep transition-all hover:bg-cream disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === 'sending' ? t('contactForm.sending') : t('contactForm.submit')}
         </button>
 
         {status === 'success' && (
-          <p role="status" className="text-xs leading-relaxed text-gold">
+          <p role="status" className="text-xs leading-relaxed text-champagne">
             {t('contactForm.success')}
           </p>
         )}
         {status === 'error' && (
-          <p role="alert" className="text-xs leading-relaxed text-red-400">
+          <p role="alert" className="text-xs leading-relaxed text-red-300">
             {t('contactForm.error')}
           </p>
         )}

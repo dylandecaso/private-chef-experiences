@@ -27,17 +27,24 @@ export default function Services() {
   const pick = (field) => field?.[lang] ?? field?.en ?? ''
 
   return (
-    <section id="services" className="bg-ink-2 py-24 lg:py-32">
+    <section id="services" className="paper-texture py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
-          <h2 className="font-serif text-3xl text-cream sm:text-4xl">{pick(services.title)}</h2>
+          <div className="flex items-center justify-center gap-4">
+            <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
+            <p className="text-[0.7rem] uppercase tracking-[0.35em] text-warm-muted sm:text-xs">
+              What We Offer
+            </p>
+            <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
+          </div>
+          <h2 className="mt-6 font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">{pick(services.title)}</h2>
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.items.map((s, i) => (
             <div key={s.id} className="reveal" style={{ transitionDelay: `${i * 70}ms` }}>
-              <div className="service-card group h-full rounded-lg border border-line bg-white/[0.035] p-8 backdrop-blur-md hover:border-gold hover:bg-white/[0.06]">
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-line text-gold transition-colors group-hover:border-gold">
+              <div className="service-card group h-full rounded-xl border border-hairline bg-white/[0.04] p-8 shadow-[0_18px_50px_-30px_rgba(0,0,0,0.5)] transition-colors hover:border-green/40">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-hairline text-green transition-colors group-hover:border-green">
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -51,8 +58,8 @@ export default function Services() {
                     {icons[s.icon] || icons.dinner}
                   </svg>
                 </div>
-                <h3 className="font-serif text-xl text-cream">{pick(s.title)}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{pick(s.text)}</p>
+                <h3 className="font-serif text-xl text-charcoal">{pick(s.title)}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-warm-muted">{pick(s.text)}</p>
               </div>
             </div>
           ))}

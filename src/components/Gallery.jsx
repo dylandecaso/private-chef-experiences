@@ -90,9 +90,16 @@ export default function Gallery() {
   }
 
   return (
-    <section id="gallery" className="bg-ink-2 py-24 lg:py-32">
+    <section id="gallery" className="paper-texture py-24 lg:py-32">
       <div className="mx-auto max-w-2xl px-5 text-center reveal lg:px-8">
-        <h2 className="font-serif text-3xl text-cream sm:text-4xl">{t('gallery.title')}</h2>
+        <div className="flex items-center justify-center gap-4">
+          <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
+          <p className="text-[0.7rem] uppercase tracking-[0.35em] text-warm-muted sm:text-xs">
+            Gallery
+          </p>
+          <span className="hidden h-px w-10 bg-hairline sm:block" aria-hidden="true" />
+        </div>
+        <h2 className="mt-5 font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">{t('gallery.title')}</h2>
       </div>
 
       {/* Cinematic zoom-parallax showcase — first 7 photos, full-bleed.
@@ -112,17 +119,17 @@ export default function Gallery() {
               key={item.src}
               onClick={() => openAt(i)}
               aria-label={`${t('gallery.openImage')}: ${item.alt}`}
-              className="group relative aspect-square overflow-hidden rounded-xl border border-line outline-none transition-all duration-300 hover:border-gold focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/60"
+              className="group relative aspect-square overflow-hidden rounded-xl border border-hairline outline-none transition-all duration-300 hover:border-green/50 focus-visible:border-green/50 focus-visible:ring-2 focus-visible:ring-green/40"
             >
               <SafeImage
                 src={item.src}
                 alt={item.alt}
                 className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
-              {/* dark + gold wash on hover */}
-              <div className="pointer-events-none absolute inset-0 bg-ink/0 transition-colors duration-500 group-hover:bg-ink/30" />
+              {/* soft green wash on hover */}
+              <div className="pointer-events-none absolute inset-0 bg-green-deep/0 transition-colors duration-500 group-hover:bg-green-deep/10" />
               {/* subtle zoom-icon cue */}
-              <span className="pointer-events-none absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full border border-gold/60 bg-ink/50 text-gold opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+              <span className="pointer-events-none absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full border border-hairline bg-paper/70 text-green opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
                   <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14zM10 7H9v2H7v1h2v2h1v-2h2V9h-2z" />
                 </svg>
@@ -139,13 +146,13 @@ export default function Gallery() {
               onClick={() =>
                 setVisibleCount((c) => Math.min(c + STEP, galleryImages.length))
               }
-              className="rounded-full border border-gold px-8 py-3.5 text-sm tracking-wide text-gold transition-all hover:bg-gold hover:text-ink"
+              className="btn-emerald"
             >
               {t('gallery.loadMore')}
             </button>
           ) : (
             galleryImages.length > INITIAL_COUNT && (
-              <p className="text-sm uppercase tracking-[0.3em] text-muted">
+              <p className="text-sm uppercase tracking-[0.3em] text-warm-muted">
                 {t('gallery.noMore')}
               </p>
             )
@@ -156,7 +163,7 @@ export default function Gallery() {
       {/* ---------------------------- LIGHTBOX ---------------------------- */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/90 backdrop-blur-sm"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-green-deep/92 backdrop-blur"
           role="dialog"
           aria-modal="true"
           aria-label={t('gallery.viewer')}
@@ -169,7 +176,7 @@ export default function Gallery() {
             type="button"
             onClick={close}
             aria-label={t('gallery.close')}
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-ink/60 text-cream transition-colors hover:border-gold hover:text-gold"
+            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-hairline-light bg-green-deep/60 text-cream transition-colors hover:border-champagne hover:text-champagne"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
               <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z" />
@@ -184,7 +191,7 @@ export default function Gallery() {
               prev()
             }}
             aria-label={t('gallery.prev')}
-            className="absolute left-3 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink/60 text-cream transition-colors hover:border-gold hover:text-gold sm:left-6"
+            className="absolute left-3 flex h-12 w-12 items-center justify-center rounded-full border border-hairline-light bg-green-deep/60 text-cream transition-colors hover:border-champagne hover:text-champagne sm:left-6"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
               <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
@@ -200,9 +207,9 @@ export default function Gallery() {
               src={galleryImages[activeIndex].src}
               alt={galleryImages[activeIndex].alt}
               loading="eager"
-              className="max-h-[80vh] w-auto rounded-lg border border-line object-contain shadow-2xl"
+              className="max-h-[80vh] w-auto rounded-lg border border-hairline-light object-contain shadow-2xl"
             />
-            <figcaption className="mt-3 text-center text-xs uppercase tracking-[0.3em] text-muted">
+            <figcaption className="mt-3 text-center text-xs uppercase tracking-[0.3em] text-cream/70">
               {activeIndex + 1} / {galleryImages.length}
             </figcaption>
           </figure>
@@ -215,7 +222,7 @@ export default function Gallery() {
               next()
             }}
             aria-label={t('gallery.next')}
-            className="absolute right-3 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink/60 text-cream transition-colors hover:border-gold hover:text-gold sm:right-6"
+            className="absolute right-3 flex h-12 w-12 items-center justify-center rounded-full border border-hairline-light bg-green-deep/60 text-cream transition-colors hover:border-champagne hover:text-champagne sm:right-6"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
               <path d="m10 6-1.41 1.41L13.17 12l-4.58 4.59L10 18l6-6z" />

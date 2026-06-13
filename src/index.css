@@ -22,6 +22,21 @@
   /* Border tint (gold @ 25%) */
   --color-line: rgba(196, 154, 90, 0.25);
 
+  /* ── Dark mystic palette (black + gold + cream, classic / editorial) ──
+     These are theme ROLE tokens. The names are kept from the previous
+     palette to avoid churn across components; the values below are the
+     source of truth and define the current dark theme. */
+  --color-green: #c49a5a; /* brand accent → warm gold */
+  --color-green-deep: #060606; /* deepest surface (footer, veils) */
+  --color-green-soft: #8a6a3a; /* bronze (scrollbar) */
+  --color-champagne: #d8bd86; /* lighter gold highlight */
+  --color-paper: #0b0b0b; /* primary dark surface */
+  --color-paper-2: #141414; /* alternate dark surface */
+  --color-charcoal: #f5f1ea; /* primary text → warm cream */
+  --color-warm-muted: #b3ada3; /* secondary text → muted */
+  --color-hairline: rgba(196, 154, 90, 0.18); /* faint gold hairline */
+  --color-hairline-light: rgba(245, 240, 230, 0.18); /* faint cream hairline */
+
   /* Fonts */
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -35,8 +50,14 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-ink);
-  color: var(--color-cream);
+  /* Deep black base with a faint gold candle-glow + low-opacity grain — a
+     mystic, classic surface that never feels flat. */
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(80vw 60vh at 50% -8%, rgba(196, 154, 90, 0.08), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  color: var(--color-charcoal);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,6 +73,73 @@ body {
    ============================================================ */
 :where(a, button, [role='button']):focus-visible {
   outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   Warm-editorial redesign — reusable building blocks.
+   ============================================================ */
+
+/* Subtle artisan-paper texture for light/cream surfaces: a faint warm glow
+   plus a very low-opacity grain so backgrounds never feel flat. */
+.paper-texture {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(70vw 55vh at 50% -8%, rgba(196, 154, 90, 0.07), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* Primary CTA on light surfaces — deep green, refined, soft pill. */
+.btn-emerald {
+  display: inline-block;
+  border: 1px solid var(--color-green);
+  border-radius: 9999px;
+  background: var(--color-green);
+  color: var(--color-paper);
+  padding: 0.85rem 2.1rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease,
+    transform 0.3s ease,
+    box-shadow 0.4s ease;
+}
+.btn-emerald:hover {
+  background: var(--color-champagne);
+  border-color: var(--color-champagne);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px -14px rgba(196, 154, 90, 0.4);
+}
+.btn-emerald:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+}
+
+/* Hero CTA over imagery — thin champagne outline that fills on hover. */
+.btn-hero {
+  display: inline-block;
+  border: 1px solid var(--color-champagne);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-cream);
+  padding: 0.85rem 2.4rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition:
+    background 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease;
+}
+.btn-hero:hover {
+  background: var(--color-champagne);
+  color: var(--color-green-deep);
+}
+.btn-hero:focus-visible {
+  outline: 2px solid var(--color-champagne);
   outline-offset: 3px;
 }
 
@@ -88,25 +176,16 @@ body {
    Reduced motion keeps the color reveal but drops the skew/lift.
    ============================================================ */
 .service-card {
-  transform: skewY(-2deg);
-  filter: grayscale(1);
   transition:
-    transform 0.7s ease,
-    filter 0.7s ease,
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
     background-color 0.4s ease,
     border-color 0.4s ease;
 }
 .service-card:hover {
-  transform: skewY(0deg) translateY(-8px);
-  filter: grayscale(0);
+  transform: translateY(-6px);
 }
 @media (prefers-reduced-motion: reduce) {
-  .service-card {
-    transform: none;
-    transition:
-      filter 0.4s ease,
-      border-color 0.4s ease;
-  }
   .service-card:hover {
     transform: none;
   }
@@ -119,9 +198,10 @@ body {
    ============================================================ */
 .legal-content h2 {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-style: italic;
+  font-size: 1.6rem;
   line-height: 2rem;
-  color: var(--color-cream);
+  color: var(--color-green);
   margin-top: 2.75rem;
   margin-bottom: 0.85rem;
 }
@@ -129,31 +209,31 @@ body {
   margin-top: 0;
 }
 .legal-content p {
-  color: var(--color-muted);
-  line-height: 1.75;
+  color: var(--color-charcoal);
+  line-height: 1.8;
   margin-bottom: 1rem;
 }
 .legal-content ul {
   margin: 0 0 1.15rem;
   padding-left: 1.3rem;
   list-style: disc;
-  color: var(--color-muted);
+  color: var(--color-charcoal);
 }
 .legal-content li {
   margin-bottom: 0.45rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 .legal-content a {
-  color: var(--color-gold);
+  color: var(--color-green);
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.2s ease;
 }
 .legal-content a:hover {
-  color: var(--color-cream);
+  color: var(--color-green-deep);
 }
 .legal-content strong {
-  color: var(--color-cream);
+  color: var(--color-charcoal);
   font-weight: 600;
 }
 
@@ -214,10 +294,10 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-ink-2);
+  background: var(--color-paper-2);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-bronze);
+  background: var(--color-green-soft);
   border-radius: 8px;
 }
 

@@ -11,14 +11,14 @@ export default function Footer() {
   const whatsappUrl = buildWhatsAppUrl(contact)
 
   return (
-    <footer id="contact" className="border-t border-line bg-ink">
+    <footer id="contact" className="border-t border-hairline-light bg-green-deep">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-4">
             <svg
               viewBox="0 0 24 24"
-              className="h-10 w-10 shrink-0 fill-gold"
+              className="h-10 w-10 shrink-0 fill-champagne"
               aria-hidden="true"
             >
               <path
@@ -26,12 +26,12 @@ export default function Footer() {
                 d="M12.5 1.5c-1.77 0-3.33 1.17-3.83 2.87C8.14 4.13 7.58 4 7 4a4 4 0 0 0-4 4a4.01 4.01 0 0 0 3 3.87V19h13v-7.13c1.76-.46 3-2.05 3-3.87a4 4 0 0 0-4-4c-.58 0-1.14.13-1.67.37c-.5-1.7-2.06-2.87-3.83-2.87m-.5 9h1v7h-1zm-3 2h1v5H9zm6 0h1v5h-1zM6 20v1a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-1z"
               />
             </svg>
-            <span className="h-10 w-px bg-line" aria-hidden="true" />
+            <span className="h-10 w-px bg-hairline-light" aria-hidden="true" />
             <div className="flex flex-col gap-1 leading-none">
               <span className="font-serif text-xl font-medium tracking-[0.2em] text-cream">
                 {t('brand.name')}
               </span>
-              <span className="text-[0.65rem] uppercase tracking-[0.32em] text-gold/90">
+              <span className="text-[0.65rem] uppercase tracking-[0.32em] text-champagne/90">
                 {t('brand.tagline')}
               </span>
             </div>
@@ -40,14 +40,14 @@ export default function Footer() {
 
         {/* Contact */}
         <div>
-          <h3 className="text-sm uppercase tracking-[0.3em] text-gold">
+          <h3 className="text-sm uppercase tracking-[0.3em] text-champagne">
             {t('footer.contact')}
           </h3>
-          <ul className="mt-5 space-y-3 text-sm text-muted">
+          <ul className="mt-5 space-y-3 text-sm text-cream/80">
             <li>
               <a
                 href={`mailto:${contact.email}`}
-                className="transition-colors hover:text-gold"
+                className="transition-colors hover:text-champagne"
               >
                 {contact.email}
               </a>
@@ -55,12 +55,12 @@ export default function Footer() {
             <li>
               <a
                 href={`tel:${contact.phoneTel}`}
-                className="transition-colors hover:text-gold"
+                className="transition-colors hover:text-champagne"
               >
                 {contact.phoneDisplay}
               </a>
             </li>
-            {contact.location && <li>{contact.location}</li>}
+            {contact.location && <li className="text-cream/70">{contact.location}</li>}
           </ul>
 
           {/* WhatsApp button with prefilled message */}
@@ -81,8 +81,8 @@ export default function Footer() {
         <ContactForm />
       </div>
 
-      <div className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-5 py-6 text-center text-xs tracking-wide text-muted lg:flex-row lg:justify-between lg:px-8">
+      <div className="border-t border-hairline-light">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-5 py-6 text-center text-xs tracking-wide text-cream/60 lg:flex-row lg:justify-between lg:px-8">
           <p>
             © {new Date().getFullYear()} PRIVATE CHEF experiences. {t('footer.rights')}
           </p>
@@ -90,17 +90,17 @@ export default function Footer() {
             className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
             aria-label="Legal"
           >
-            <Link to="/privacy-policy" className="transition-colors hover:text-gold">
+            <Link to="/privacy-policy" className="text-cream/70 transition-colors hover:text-champagne">
               Privacy Policy
             </Link>
-            <span aria-hidden="true" className="text-line">·</span>
-            <Link to="/terms-and-conditions" className="transition-colors hover:text-gold">
+            <span aria-hidden="true" className="text-hairline-light">·</span>
+            <Link to="/terms-and-conditions" className="text-cream/70 transition-colors hover:text-champagne">
               Terms &amp; Conditions
             </Link>
-            <span aria-hidden="true" className="text-line">·</span>
+            <span aria-hidden="true" className="text-hairline-light">·</span>
             <Link
               to="/admin"
-              className="opacity-50 transition-opacity hover:text-gold hover:opacity-100"
+              className="text-cream/70 opacity-50 transition-opacity hover:text-champagne hover:opacity-100"
             >
               Admin
             </Link>

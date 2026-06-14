@@ -82,7 +82,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-hairline-light">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-5 py-6 text-center text-xs tracking-wide text-cream/60 lg:flex-row lg:justify-between lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-5 pb-24 pt-6 text-center text-xs tracking-wide text-cream/60 lg:flex-row lg:justify-between lg:px-8">
           <p>
             © {new Date().getFullYear()} PRIVATE CHEF experiences. {t('footer.rights')}
           </p>

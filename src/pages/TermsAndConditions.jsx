@@ -120,8 +120,8 @@ export default function TermsAndConditions() {
       <ul>
         <li>
           Email:{' '}
-          <a href="mailto:privatechefexperiencee@gmail.com">
-            privatechefexperiencee@gmail.com
+          <a href="mailto:privatechefexperiences@gmail.com">
+            privatechefexperiences@gmail.com
           </a>
         </li>
         <li>

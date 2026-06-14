@@ -125,7 +125,7 @@ export const defaultContent = {
     cta: { en: 'Contact Me', es: 'Contactame' },
   },
   contact: {
-    email: 'privatechefexperiencee@gmail.com',
+    email: 'privatechefexperiences@gmail.com',
     phoneDisplay: '+1 (347) 219-5650',
     phoneTel: '+13472195650',
     phoneWhatsApp: '13472195650',

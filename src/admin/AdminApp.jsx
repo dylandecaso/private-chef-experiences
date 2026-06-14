@@ -9,6 +9,7 @@ import ExperiencesEditor from './editors/ExperiencesEditor'
 import FinalCtaEditor from './editors/FinalCtaEditor'
 import ContactEditor from './editors/ContactEditor'
 import GalleryEditor from './editors/GalleryEditor'
+import AnalyticsView from './editors/AnalyticsView'
 
 const SECTIONS = [
   { id: 'hero', label: 'Hero' },
@@ -17,6 +18,7 @@ const SECTIONS = [
   { id: 'gallery', label: 'Gallery' },
   { id: 'finalCta', label: 'Final CTA' },
   { id: 'contact', label: 'Contact' },
+  { id: 'analytics', label: 'Analytics' },
 ]
 
 export default function AdminApp() {
@@ -113,6 +115,7 @@ export default function AdminApp() {
       onChange={({ contact, contactForm }) => setDraft({ ...draft, contact, contactForm })}
     />
   )
+  else if (section === 'analytics') editor = <AnalyticsView />
 
   return (
     <div className="min-h-screen bg-ink text-cream">

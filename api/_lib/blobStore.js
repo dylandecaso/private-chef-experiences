@@ -76,3 +76,44 @@ export async function putGalleryImage(filename, body, contentType) {
 export async function deleteBlobByUrl(url) {
   await del(url)
 }
+
+// ── QR / visit analytics ────────────────────────────────────────────────
+// A tiny counter blob, kept separate from the site content. Read-modify-write
+// isn't atomic, but business-card QR traffic is low enough that the rare lost
+// increment under simultaneous scans is acceptable.
+const ANALYTICS_PATHNAME = 'analytics.json'
+
+async function findAnalyticsBlob() {
+  const { blobs } = await list({ prefix: ANALYTICS_PATHNAME })
+  return blobs.find((b) => b.pathname === ANALYTICS_PATHNAME) || null
+}
+
+export async function readAnalytics() {
+  const blob = await findAnalyticsBlob()
+  if (!blob) return { qrScans: 0, updatedAt: null }
+  try {
+    const res = await fetch(`${blob.url}?ts=${Date.now()}`)
+    if (!res.ok) return { qrScans: 0, updatedAt: null }
+    const data = await res.json()
+    return { qrScans: Number(data?.qrScans) || 0, updatedAt: data?.updatedAt || null }
+  } catch {
+    return { qrScans: 0, updatedAt: null }
+  }
+}
+
+export async function writeAnalytics(data) {
+  await put(ANALYTICS_PATHNAME, JSON.stringify(data), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    cacheControlMaxAge: 0,
+  })
+}
+
+export async function bumpQrScans() {
+  const current = await readAnalytics()
+  const qrScans = (Number(current.qrScans) || 0) + 1
+  await writeAnalytics({ qrScans, updatedAt: new Date().toISOString() })
+  return qrScans
+}

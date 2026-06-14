@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/qr", "destination": "/api/qr" },
     { "source": "/((?!api/|videos/|images/|favicon|assets/|.*\\.[a-z0-9]+$).*)", "destination": "/index.html" }
   ]
 }

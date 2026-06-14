@@ -1,8 +1,15 @@
-// Vercel serverless function that delivers contact-form submissions to
-// the chef's inbox via Resend. Configure these in the Vercel dashboard:
+// Vercel serverless function for contact-form submissions. Via Resend it does
+// two things: (1) emails the chef an internal notification, and (2) sends the
+// visitor an automatic confirmation. Configure in the Vercel dashboard:
 //   RESEND_API_KEY     — your Resend API key
-//   CONTACT_TO_EMAIL   — destination address (defaults to the one below)
-//   CONTACT_FROM_EMAIL — verified sender on Resend (e.g. "Site <noreply@yourdomain.com>")
+//   CONTACT_TO_EMAIL   — where the chef receives notifications (comma-separated ok)
+//   CONTACT_FROM_EMAIL — the "from" used for BOTH emails. Leave it unset until a
+//                        domain is verified in Resend (we fall back to the shared
+//                        onboarding@resend.dev sender). Once verified, set it to a
+//                        sender on that domain, e.g.
+//                        "Private Chef Experiences <hello@privatechef-experiences.com>".
+//                        That single change also delivers the visitor confirmation
+//                        to everyone (see the note near the confirmation send below).
 import { Resend } from 'resend'
 import { addLead } from './_lib/blobStore.js'
 
@@ -63,8 +70,12 @@ export default async function handler(req, res) {
       .split(',')
       .map((addr) => addr.trim())
       .filter(Boolean)
-    // Resend's default test sender works without domain verification.
-    const from = process.env.CONTACT_FROM_EMAIL || 'onboarding@resend.dev'
+    // Used as the "from" for BOTH the internal notification and the visitor
+    // confirmation. The onboarding@resend.dev fallback works without domain
+    // verification (a display name is allowed). Set CONTACT_FROM_EMAIL once the
+    // domain is verified — no code change required.
+    const from =
+      process.env.CONTACT_FROM_EMAIL || 'Private Chef Experiences <onboarding@resend.dev>'
 
     const serviceLabel =
       SERVICE_LABELS[service]?.[lang] ||
@@ -125,6 +136,59 @@ export default async function handler(req, res) {
       })
     } catch (storeErr) {
       console.error('lead store error:', storeErr)
+    }
+
+    // Send the visitor an automatic confirmation email (best-effort). This must
+    // never affect the internal notification above or the 200 response below.
+    //
+    // LIMITATION: with the shared onboarding@resend.dev sender, Resend only
+    // delivers to the account owner's own address — confirmations to any other
+    // visitor are rejected (logged here, then ignored). Once a domain is verified
+    // in Resend and CONTACT_FROM_EMAIL points to a sender on it, this starts
+    // reaching every visitor with no further code changes.
+    try {
+      const niceName = escapeHtml(firstName.trim())
+      const confirmationHtml = `
+        <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 560px; margin: 0 auto; background: #ffffff; color: #1a1a1a; padding: 8px 0;">
+          <p style="text-align: center; margin: 0; padding: 8px 0; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #b08d57; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">Private Chef Experiences</p>
+          <div style="height: 1px; background: #e7e0d5; margin: 12px auto; width: 80%;"></div>
+          <div style="padding: 8px 24px 0;">
+            <h1 style="margin: 0 0 18px; font-size: 24px; font-weight: normal;">Thank you for reaching out</h1>
+            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">Dear ${niceName},</p>
+            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">Thank you for contacting Private Chef Experiences. We've received your message and will be in touch with you as soon as possible to begin crafting a dining experience tailored to you.</p>
+            <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">We look forward to welcoming you to the table.</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6;">Warm regards,</p>
+            <p style="margin: 2px 0 0; font-size: 15px; font-style: italic; color: #b08d57;">Emanuel Aciar — Private Chef</p>
+          </div>
+          <div style="height: 1px; background: #e7e0d5; margin: 24px auto 12px; width: 80%;"></div>
+          <p style="text-align: center; margin: 0; font-size: 12px; color: #9a9a9a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">New Jersey, USA &middot; privatechef-experiences.com</p>
+        </div>
+      `.trim()
+      const confirmationText = [
+        `Dear ${firstName.trim()},`,
+        '',
+        "Thank you for contacting Private Chef Experiences. We've received your message and will be in touch with you as soon as possible to begin crafting a dining experience tailored to you.",
+        '',
+        'We look forward to welcoming you to the table.',
+        '',
+        'Warm regards,',
+        'Emanuel Aciar — Private Chef',
+        'New Jersey, USA · privatechef-experiences.com',
+      ].join('\n')
+
+      const { error: confirmError } = await resend.emails.send({
+        from,
+        to: email.trim(),
+        subject: 'Thank you for reaching out — Private Chef Experiences',
+        replyTo: to[0],
+        html: confirmationHtml,
+        text: confirmationText,
+      })
+      if (confirmError) {
+        console.error('Confirmation email skipped:', confirmError)
+      }
+    } catch (confirmErr) {
+      console.error('Confirmation email error:', confirmErr)
     }
 
     return res.status(200).json({ ok: true })

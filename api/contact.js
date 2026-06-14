@@ -4,6 +4,7 @@
 //   CONTACT_TO_EMAIL   — destination address (defaults to the one below)
 //   CONTACT_FROM_EMAIL — verified sender on Resend (e.g. "Site <noreply@yourdomain.com>")
 import { Resend } from 'resend'
+import { addLead } from './_lib/blobStore.js'
 
 const SERVICE_LABELS = {
   privateDinner: { en: 'Private Dinner', es: 'Cena Privada' },
@@ -109,6 +110,21 @@ export default async function handler(req, res) {
     if (error) {
       console.error('Resend error:', error)
       return res.status(502).json({ error: 'Email delivery failed' })
+    }
+
+    // Persist the lead (best-effort) so it appears in /admin → Clientes
+    // potenciales. A storage failure must not fail the email that already sent.
+    try {
+      await addLead({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        service,
+        source: 'form',
+      })
+    } catch (storeErr) {
+      console.error('lead store error:', storeErr)
     }
 
     return res.status(200).json({ ok: true })

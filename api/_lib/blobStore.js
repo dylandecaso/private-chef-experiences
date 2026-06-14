@@ -4,6 +4,7 @@
 // images alongside it under the `gallery/` prefix. The JSON's `gallery`
 // array stores { url, alt } objects in display order.
 import { del, list, put } from '@vercel/blob'
+import { randomUUID } from 'node:crypto'
 import { defaultContent } from '../../src/content/defaultContent.js'
 
 const CONTENT_PATHNAME = 'site-content.json'
@@ -116,4 +117,61 @@ export async function bumpQrScans() {
   const qrScans = (Number(current.qrScans) || 0) + 1
   await writeAnalytics({ qrScans, updatedAt: new Date().toISOString() })
   return qrScans
+}
+
+// ── Contact-form leads ───────────────────────────────────────────────────
+// Each contact-form submission (and any manually added lead) is appended here
+// so it shows up in /admin → Clientes potenciales. Stored in a stable blob and
+// capped so it can't grow without bound.
+const LEADS_PATHNAME = 'leads.json'
+
+async function findLeadsBlob() {
+  const { blobs } = await list({ prefix: LEADS_PATHNAME })
+  return blobs.find((b) => b.pathname === LEADS_PATHNAME) || null
+}
+
+export async function readLeads() {
+  const blob = await findLeadsBlob()
+  if (!blob) return []
+  try {
+    const res = await fetch(`${blob.url}?ts=${Date.now()}`)
+    if (!res.ok) return []
+    const data = await res.json()
+    return Array.isArray(data) ? data : []
+  } catch {
+    return []
+  }
+}
+
+export async function writeLeads(leads) {
+  await put(LEADS_PATHNAME, JSON.stringify(leads), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    cacheControlMaxAge: 0,
+  })
+}
+
+const trim = (v, max) => (v == null ? '' : String(v).slice(0, max))
+
+export async function addLead(lead) {
+  const leads = await readLeads()
+  const entry = {
+    id: randomUUID(),
+    firstName: trim(lead.firstName, 120),
+    lastName: trim(lead.lastName, 120),
+    email: trim(lead.email, 200),
+    phone: trim(lead.phone, 60),
+    service: trim(lead.service, 60),
+    source: lead.source === 'manual' ? 'manual' : 'form',
+    createdAt: new Date().toISOString(),
+  }
+  await writeLeads([entry, ...leads].slice(0, 2000)) // newest first, capped
+  return entry
+}
+
+export async function deleteLead(id) {
+  const leads = await readLeads()
+  await writeLeads(leads.filter((l) => l.id !== id))
 }

@@ -12,27 +12,33 @@ export default function AnalyticsView() {
   const [copied, setCopied] = useState(false)
 
   const load = useCallback(async () => {
-    setLoading(true)
-    setError('')
     try {
       const res = await authFetch('/api/admin/analytics')
       if (!res.ok) throw new Error()
       const data = await res.json()
       setCount(Number(data.qrScans) || 0)
       setUpdatedAt(data.updatedAt || null)
+      setError('')
     } catch {
-      setError('Could not load analytics.')
+      setError('No se pudieron cargar las analíticas.')
     } finally {
       setLoading(false)
     }
   }, [authFetch])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- async fetch that setStates only after await; benign data-load pattern.
     load()
   }, [load])
 
+  const refresh = () => {
+    setLoading(true)
+    setError('')
+    load()
+  }
+
   const reset = async () => {
-    if (!window.confirm('Reset the QR scan counter back to 0?')) return
+    if (!window.confirm('¿Resetear el contador de escaneos a 0?')) return
     try {
       const res = await authFetch('/api/admin/analytics', {
         method: 'POST',
@@ -43,10 +49,10 @@ export default function AnalyticsView() {
         setCount(0)
         setUpdatedAt(null)
       } else {
-        setError('Reset failed.')
+        setError('No se pudo resetear.')
       }
     } catch {
-      setError('Reset failed.')
+      setError('No se pudo resetear.')
     }
   }
 
@@ -62,47 +68,47 @@ export default function AnalyticsView() {
 
   return (
     <div className="space-y-8">
-      <h2 className="font-serif text-2xl text-cream">Analytics</h2>
+      <h2 className="font-serif text-2xl text-cream">Visitas desde el QR</h2>
 
-      {/* QR scan counter */}
+      {/* Contador de escaneos */}
       <div className="rounded-lg border border-line bg-ink-3 p-8 text-center">
-        <p className="text-xs uppercase tracking-[0.25em] text-muted">QR code scans</p>
+        <p className="text-xs uppercase tracking-[0.25em] text-muted">Escaneos del código QR</p>
         <p className="mt-3 font-serif text-6xl text-gold">
           {loading ? '…' : (count ?? '—')}
         </p>
         <p className="mx-auto mt-3 max-w-sm text-sm text-muted">
-          People who opened the site through the business-card QR code.
+          Personas que entraron al sitio a través del QR de las tarjetas.
         </p>
         {updatedAt && (
           <p className="mt-1 text-xs text-muted/70">
-            Last scan: {new Date(updatedAt).toLocaleString()}
+            Último escaneo: {new Date(updatedAt).toLocaleString('es-AR')}
           </p>
         )}
         {error && <p className="mt-3 text-xs text-red-400">{error}</p>}
         <div className="mt-6 flex items-center justify-center gap-3">
           <button
             type="button"
-            onClick={load}
+            onClick={refresh}
             className="rounded-full border border-gold px-5 py-2 text-xs tracking-wide text-gold transition-all hover:bg-gold hover:text-ink"
           >
-            Refresh
+            Actualizar
           </button>
           <button
             type="button"
             onClick={reset}
             className="rounded-full border border-line px-5 py-2 text-xs tracking-wide text-muted transition-colors hover:border-red-400 hover:text-red-400"
           >
-            Reset counter
+            Resetear contador
           </button>
         </div>
       </div>
 
-      {/* QR link to print on the cards */}
+      {/* Link del QR para las tarjetas */}
       <div className="rounded-lg border border-line bg-ink-2 p-6">
-        <p className="text-xs uppercase tracking-[0.25em] text-muted">QR code link</p>
+        <p className="text-xs uppercase tracking-[0.25em] text-muted">Link del código QR</p>
         <p className="mt-3 text-sm text-cream">
-          Point the QR on your business cards to this URL — every scan adds +1
-          above and sends the visitor to the homepage:
+          Apuntá el QR de tus tarjetas a esta URL — cada escaneo suma +1 arriba y
+          lleva a la persona al inicio del sitio:
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <code className="rounded bg-ink-3 px-3 py-2 text-sm text-gold">{QR_URL}</code>
@@ -111,7 +117,7 @@ export default function AnalyticsView() {
             onClick={copyUrl}
             className="rounded-full border border-gold px-4 py-1.5 text-xs text-gold transition-all hover:bg-gold hover:text-ink"
           >
-            {copied ? 'Copied!' : 'Copy'}
+            {copied ? '¡Copiado!' : 'Copiar'}
           </button>
         </div>
       </div>

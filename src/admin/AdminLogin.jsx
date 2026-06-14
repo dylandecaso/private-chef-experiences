@@ -12,9 +12,9 @@ export default function AdminLogin() {
         <p className="text-xs uppercase tracking-[0.4em] text-gold">
           Private Chef
         </p>
-        <h1 className="mt-3 font-serif text-3xl text-cream">Admin Panel</h1>
+        <h1 className="mt-3 font-serif text-3xl text-cream">Panel de administración</h1>
         <p className="mt-4 text-sm text-muted">
-          Sign in with the authorized Google account to edit the site.
+          Iniciá sesión con la cuenta de Google autorizada para editar el sitio.
         </p>
 
         <div className="mt-8 flex justify-center">
@@ -23,7 +23,7 @@ export default function AdminLogin() {
               setError('')
               if (resp?.credential) loginWithCredential(resp.credential)
             }}
-            onError={() => setError('Login failed. Please try again.')}
+            onError={() => setError('No se pudo iniciar sesión. Probá de nuevo.')}
             theme="filled_black"
             shape="pill"
             text="continue_with"

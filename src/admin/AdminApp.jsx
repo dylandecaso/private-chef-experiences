@@ -37,8 +37,8 @@ const NAV = [
 const CONTENT_IDS = NAV[0].items.map((i) => i.id)
 const ALL_ITEMS = NAV.flatMap((g) => g.items)
 
-// Module-scope so it isn't recreated each render. Used by both the desktop
-// sidebar and the mobile dropdown.
+// Module-scope so it isn't recreated each render. Desktop sidebar only — the
+// mobile dropdown uses the accordion MobileNav defined below.
 function AdminNav({ section, onSelect }) {
   return (
     <nav className="space-y-5">
@@ -65,6 +65,65 @@ function AdminNav({ section, onSelect }) {
           </div>
         </div>
       ))}
+    </nav>
+  )
+}
+
+// Mobile-only accordion nav: each group (Contenido / Analíticas) is a tappable
+// header that expands/collapses its pages. The group containing the active
+// section starts open. Desktop keeps the always-expanded AdminNav above.
+function MobileNav({ section, onSelect }) {
+  const activeGroup = NAV.find((g) => g.items.some((i) => i.id === section))?.group
+  const [open, setOpen] = useState(() => (activeGroup ? { [activeGroup]: true } : {}))
+  const toggle = (group) => setOpen((o) => ({ ...o, [group]: !o[group] }))
+
+  return (
+    <nav className="space-y-1">
+      {NAV.map((g) => {
+        const isOpen = !!open[g.group]
+        const hasActive = g.items.some((i) => i.id === section)
+        return (
+          <div key={g.group} className="border-b border-line/60 last:border-b-0">
+            <button
+              type="button"
+              onClick={() => toggle(g.group)}
+              aria-expanded={isOpen}
+              className={`flex w-full items-center justify-between px-3 py-3 text-left text-xs uppercase tracking-[0.25em] transition-colors ${
+                hasActive ? 'text-gold' : 'text-muted/80 hover:text-cream'
+              }`}
+            >
+              <span>{g.group}</span>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className={`h-4 w-4 fill-current transition-transform duration-200 ${
+                  isOpen ? 'rotate-180' : ''
+                }`}
+              >
+                <path d="M12 15.5a1 1 0 0 1-.71-.29l-5-5a1 1 0 1 1 1.42-1.42L12 13.09l4.29-4.3a1 1 0 0 1 1.42 1.42l-5 5a1 1 0 0 1-.71.29Z" />
+              </svg>
+            </button>
+            {isOpen && (
+              <div className="space-y-1 pb-3 pl-2">
+                {g.items.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => onSelect(s.id)}
+                    className={`block w-full rounded-md px-3 py-2.5 text-left text-sm tracking-wide transition-colors ${
+                      section === s.id
+                        ? 'bg-gold/10 text-gold'
+                        : 'text-muted hover:bg-cream/5 hover:text-cream'
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      })}
     </nav>
   )
 }
@@ -252,11 +311,11 @@ export default function AdminApp() {
 
         {/* Mobile dropdown nav */}
         {navOpen && (
-          <div className="border-t border-line bg-ink/95 px-5 py-4 lg:hidden">
-            <AdminNav section={section} onSelect={selectSection} />
+          <div className="border-t border-line bg-ink/95 px-4 py-3 lg:hidden">
+            <MobileNav section={section} onSelect={selectSection} />
             <Link
               to="/"
-              className="mt-5 block px-3 text-xs uppercase tracking-[0.3em] text-gold hover:text-cream"
+              className="mt-4 block border-t border-line px-3 pt-4 text-xs uppercase tracking-[0.3em] text-gold hover:text-cream"
             >
               ← Ver sitio
             </Link>

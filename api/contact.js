@@ -28,6 +28,28 @@ const SERVICE_LABELS = {
   other: { en: 'Other', es: 'Otro' },
 }
 
+// Visitor confirmation copy, localized by the form's `lang` (falls back to en).
+const CONFIRMATION = {
+  en: {
+    subject: 'Thank you for reaching out — Private Chef Experiences',
+    heading: 'Thank you for reaching out',
+    greeting: 'Dear',
+    body: "Thank you for contacting Private Chef Experiences. We've received your message and will be in touch with you as soon as possible to begin crafting a dining experience tailored to you.",
+    closing: 'We look forward to welcoming you to the table.',
+    signoff: 'Warm regards,',
+    signature: 'Emanuel Aciar — Private Chef',
+  },
+  es: {
+    subject: 'Gracias por contactarnos — Private Chef Experiences',
+    heading: 'Gracias por contactarnos',
+    greeting: 'Hola',
+    body: 'Gracias por escribir a Private Chef Experiences. Recibimos tu mensaje y nos pondremos en contacto contigo lo antes posible para comenzar a crear una experiencia gastronómica a tu medida.',
+    closing: 'Será un placer recibirte en la mesa.',
+    signoff: 'Un cordial saludo,',
+    signature: 'Emanuel Aciar — Chef Privado',
+  },
+}
+
 const escapeHtml = (str) =>
   String(str ?? '')
     .replace(/&/g, '&amp;')
@@ -140,46 +162,50 @@ export default async function handler(req, res) {
 
     // Send the visitor an automatic confirmation email (best-effort). This must
     // never affect the internal notification above or the 200 response below.
+    // The copy is localized by the form's `lang`.
     //
-    // LIMITATION: with the shared onboarding@resend.dev sender, Resend only
-    // delivers to the account owner's own address — confirmations to any other
-    // visitor are rejected (logged here, then ignored). Once a domain is verified
-    // in Resend and CONTACT_FROM_EMAIL points to a sender on it, this starts
-    // reaching every visitor with no further code changes.
+    // Delivery to arbitrary visitors requires CONTACT_FROM_EMAIL to point at a
+    // verified-domain sender (set in Vercel). With the onboarding@resend.dev
+    // fallback, Resend only delivers to the Resend account owner — if that ever
+    // happens, the failure is logged here and ignored.
     try {
+      const c = CONFIRMATION[lang] || CONFIRMATION.en
       const niceName = escapeHtml(firstName.trim())
       const confirmationHtml = `
         <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 560px; margin: 0 auto; background: #ffffff; color: #1a1a1a; padding: 8px 0;">
-          <p style="text-align: center; margin: 0; padding: 8px 0; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #b08d57; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">Private Chef Experiences</p>
+          <div style="text-align: center; padding: 6px 0 2px;">
+            <img src="https://www.privatechef-experiences.com/images/chef-portrait.jpg" alt="Emanuel Aciar — Private Chef" width="160" style="width: 160px; height: auto; border-radius: 10px; display: inline-block;" />
+          </div>
+          <p style="text-align: center; margin: 10px 0 0; padding: 0 0 8px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #b08d57; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">Private Chef Experiences</p>
           <div style="height: 1px; background: #e7e0d5; margin: 12px auto; width: 80%;"></div>
           <div style="padding: 8px 24px 0;">
-            <h1 style="margin: 0 0 18px; font-size: 24px; font-weight: normal;">Thank you for reaching out</h1>
-            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">Dear ${niceName},</p>
-            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">Thank you for contacting Private Chef Experiences. We've received your message and will be in touch with you as soon as possible to begin crafting a dining experience tailored to you.</p>
-            <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">We look forward to welcoming you to the table.</p>
-            <p style="margin: 0; font-size: 15px; line-height: 1.6;">Warm regards,</p>
-            <p style="margin: 2px 0 0; font-size: 15px; font-style: italic; color: #b08d57;">Emanuel Aciar — Private Chef</p>
+            <h1 style="margin: 0 0 18px; font-size: 24px; font-weight: normal;">${c.heading}</h1>
+            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">${c.greeting} ${niceName},</p>
+            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">${c.body}</p>
+            <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: #3a3a3a;">${c.closing}</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6;">${c.signoff}</p>
+            <p style="margin: 2px 0 0; font-size: 15px; font-style: italic; color: #b08d57;">${c.signature}</p>
           </div>
           <div style="height: 1px; background: #e7e0d5; margin: 24px auto 12px; width: 80%;"></div>
           <p style="text-align: center; margin: 0; font-size: 12px; color: #9a9a9a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">New Jersey, USA &middot; privatechef-experiences.com</p>
         </div>
       `.trim()
       const confirmationText = [
-        `Dear ${firstName.trim()},`,
+        `${c.greeting} ${firstName.trim()},`,
         '',
-        "Thank you for contacting Private Chef Experiences. We've received your message and will be in touch with you as soon as possible to begin crafting a dining experience tailored to you.",
+        c.body,
         '',
-        'We look forward to welcoming you to the table.',
+        c.closing,
         '',
-        'Warm regards,',
-        'Emanuel Aciar — Private Chef',
+        c.signoff,
+        c.signature,
         'New Jersey, USA · privatechef-experiences.com',
       ].join('\n')
 
       const { error: confirmError } = await resend.emails.send({
         from,
         to: email.trim(),
-        subject: 'Thank you for reaching out — Private Chef Experiences',
+        subject: c.subject,
         replyTo: to[0],
         html: confirmationHtml,
         text: confirmationText,

@@ -1,4 +1,5 @@
 import SafeImage from './SafeImage'
+import SectionDecor from './SectionDecor'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useContent } from '../content/ContentContext'
 
@@ -9,8 +10,14 @@ export default function Experiences() {
   const pick = (field) => field?.[lang] ?? field?.en ?? ''
 
   return (
-    <section id="experiences" className="bg-paper-2 py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+    <section id="experiences" className="relative bg-paper-2 py-24 lg:py-32">
+      <SectionDecor
+        items={[
+          { src: '/images/decor/6.png', className: 'right-[-2rem] top-12 w-28 sm:w-44', rot: 12, opacity: 0.3, speed: 1.7, spin: -6 },
+          { src: '/images/decor/8.png', className: 'bottom-10 left-6 hidden w-20 sm:block sm:w-28', rot: 0, opacity: 0.42, speed: 2.3, spin: 0 },
+        ]}
+      />
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
           <h2 className="font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">
             {pick(experiences.title)}

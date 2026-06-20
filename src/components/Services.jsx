@@ -31,8 +31,8 @@ export default function Services() {
     <section id="services" className="paper-texture relative py-24 lg:py-32">
       <SectionDecor
         items={[
-          { src: '/images/decor/4.png', className: 'left-[-2rem] top-10 w-28 sm:w-40', rot: -12, opacity: 0.32, speed: 1.5, spin: 5 },
-          { src: '/images/decor/1.png', className: 'bottom-8 right-[-1.5rem] hidden w-28 sm:block sm:w-36', rot: 12, opacity: 0.28, speed: 2, spin: -6 },
+          { src: '/images/decor/4.png', className: 'left-[-1.5rem] top-10 w-24 sm:w-44 lg:w-56', rot: -10, opacity: 0.9, speed: 1.4, spin: 4, dur: '7s', delay: '0s' },
+          { src: '/images/decor/1.png', className: 'bottom-6 right-[-1.5rem] w-28 sm:w-44 lg:w-56', rot: 10, opacity: 0.85, speed: 2, spin: -5, dur: '8.5s', delay: '1.2s' },
         ]}
       />
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">

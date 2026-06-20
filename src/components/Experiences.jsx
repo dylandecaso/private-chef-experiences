@@ -13,8 +13,8 @@ export default function Experiences() {
     <section id="experiences" className="relative bg-paper-2 py-24 lg:py-32">
       <SectionDecor
         items={[
-          { src: '/images/decor/6.png', className: 'right-[-2rem] top-12 w-28 sm:w-44', rot: 12, opacity: 0.3, speed: 1.7, spin: -6 },
-          { src: '/images/decor/8.png', className: 'bottom-10 left-6 hidden w-20 sm:block sm:w-28', rot: 0, opacity: 0.42, speed: 2.3, spin: 0 },
+          { src: '/images/decor/6.png', className: 'right-[-1.5rem] top-10 w-24 sm:w-48 lg:w-60', rot: 10, opacity: 0.9, speed: 1.6, spin: -5, dur: '7.5s', delay: '0.4s' },
+          { src: '/images/decor/2.png', className: 'bottom-8 left-[-1.5rem] hidden w-28 sm:block sm:w-44 lg:w-52', rot: -8, opacity: 0.85, speed: 2.1, spin: 5, dur: '9s', delay: '1.6s' },
         ]}
       />
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">

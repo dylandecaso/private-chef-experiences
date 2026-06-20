@@ -13,8 +13,8 @@ export default function FinalCTA() {
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-champagne/10 blur-[120px]" />
       <SectionDecor
         items={[
-          { src: '/images/decor/3.png', className: 'left-4 top-10 hidden w-20 sm:block sm:w-28', rot: -10, opacity: 0.26, speed: 1.4, spin: 6 },
-          { src: '/images/decor/5.png', className: 'bottom-10 right-[-1rem] w-24 sm:w-32', rot: 12, opacity: 0.3, speed: 1.9, spin: -8 },
+          { src: '/images/decor/5.png', className: 'left-[-0.5rem] top-10 w-20 sm:w-36 lg:w-44', rot: -8, opacity: 0.9, speed: 1.5, spin: 6, dur: '7s', delay: '0.3s' },
+          { src: '/images/decor/3.png', className: 'bottom-8 right-[-0.5rem] hidden w-24 sm:block sm:w-36 lg:w-44', rot: 10, opacity: 0.85, speed: 1.9, spin: -6, dur: '8s', delay: '1.5s' },
         ]}
       />
       <div className="relative mx-auto max-w-3xl px-5 text-center lg:px-8">

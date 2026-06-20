@@ -294,6 +294,34 @@ body {
 }
 
 /* ============================================================
+   Decorative ingredient PNGs (SectionDecor) — a slow, premium
+   "float": a gentle drift up, a whisper of rotation and a subtle
+   scale breath. The scroll parallax + mouse drift live on the
+   wrapping <span> (set in JS); this animates the <img> itself so
+   the two transforms compose instead of overwriting each other.
+   ============================================================ */
+@keyframes decor-float {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2.5deg) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+.decor-anim {
+  animation: decor-float 7s ease-in-out infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .decor-anim {
+    animation: none;
+  }
+}
+
+/* ============================================================
    Hero CTA — "Book an Experience"
    Understated outline button. Resting: transparent fill, full solid
    gold border. Hover: a faint translucent gold fill fades in. No

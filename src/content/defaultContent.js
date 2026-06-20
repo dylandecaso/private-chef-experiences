@@ -19,7 +19,6 @@ export const defaultContent = {
       es: 'Altamente motivado para crecer como Chef Privado, aportando creatividad, dedicación y una sólida ética de trabajo. Comprometido a brindar experiencias culinarias excepcionales mientras continúa aprendiendo y evolucionando.',
     },
     videoUrl: '/videos/hero-desktop.mp4',
-    posterUrl: '/images/hero1.png',
     bioVideoUrl: '/videos/bio-background.mp4',
     audioEn: '',
     audioEs: '',

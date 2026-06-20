@@ -157,12 +157,14 @@ export default function Hero() {
     <section id="home" ref={trackRef} className="hero-pan-track">
       <div ref={stageRef} className="hero-pan-stage">
         {/* Single, stable <video> (never remounts). object-left start anchors
-            the chef; on mobile it pans left → right with scroll. */}
+            the chef; on mobile it pans left → right with scroll.
+            No poster on purpose: the static fallback framed the chef facing the
+            opposite way to the video's first frame, so playback caused a visible
+            flip. The dark veil below covers the brief pre-load frame. */}
         <video
           ref={videoRef}
           className="hero-pan-video"
           src={hero.videoUrl}
-          poster={hero.posterUrl}
           autoPlay
           muted
           loop

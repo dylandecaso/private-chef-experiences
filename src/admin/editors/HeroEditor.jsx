@@ -28,11 +28,6 @@ export default function HeroEditor({ value, onChange }) {
           hint="MP4/WebM, up to 50 MB"
         />
         <ImageField
-          label="Poster image (video fallback)"
-          value={value.posterUrl}
-          onChange={set('posterUrl')}
-        />
-        <ImageField
           label="Bio section background video"
           value={value.bioVideoUrl}
           onChange={set('bioVideoUrl')}

@@ -1,6 +1,5 @@
 import { useLanguage } from '../i18n/LanguageContext'
 import { useContent } from '../content/ContentContext'
-import SectionDecor from './SectionDecor'
 
 const icons = {
   dinner: (
@@ -28,14 +27,8 @@ export default function Services() {
   const pick = (field) => field?.[lang] ?? field?.en ?? ''
 
   return (
-    <section id="services" className="paper-texture relative py-24 lg:py-32">
-      <SectionDecor
-        items={[
-          { src: '/images/decor/4.png', className: 'left-[-1.5rem] top-10 w-24 sm:w-44 lg:w-56', rot: -10, opacity: 0.9, speed: 1.4, spin: 4, dur: '7s', delay: '0s' },
-          { src: '/images/decor/1.png', className: 'bottom-6 right-[-1.5rem] w-28 sm:w-44 lg:w-56', rot: 10, opacity: 0.85, speed: 2, spin: -5, dur: '8.5s', delay: '1.2s' },
-        ]}
-      />
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+    <section id="services" className="paper-texture py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
           <h2 className="font-serif text-3xl italic text-green sm:text-4xl lg:text-5xl">{pick(services.title)}</h2>
         </div>

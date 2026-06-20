@@ -294,7 +294,7 @@ body {
 }
 
 /* ============================================================
-   Decorative ingredient PNGs (SectionDecor) — a slow, premium
+   Decorative ingredient PNGs (GlobalDecor) — a slow, premium
    "float": a gentle drift up, a whisper of rotation and a subtle
    scale breath. The scroll parallax + mouse drift live on the
    wrapping <span> (set in JS); this animates the <img> itself so

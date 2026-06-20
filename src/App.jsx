@@ -9,6 +9,7 @@ import Gallery from './components/Gallery'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
+import GlobalDecor from './components/GlobalDecor'
 import { LanguageProvider } from './i18n/LanguageContext'
 import { ContentProvider } from './content/ContentContext'
 import AdminApp from './admin/AdminApp'
@@ -41,15 +42,20 @@ function PublicSite() {
   return (
     <>
       <Header />
-      <main>
-        <Hero />
-        <HeroBio />
-        <Services />
-        <Experiences />
-        <Gallery />
-        <FinalCTA />
-      </main>
-      <Footer />
+      <div className="relative">
+        <main>
+          <Hero />
+          <HeroBio />
+          <Services />
+          <Experiences />
+          <Gallery />
+          <FinalCTA />
+        </main>
+        <Footer />
+        {/* Foreground floating ingredients — one global layer over the whole
+            page so nothing is clipped at a section edge. */}
+        <GlobalDecor />
+      </div>
       <WhatsAppButton />
     </>
   )

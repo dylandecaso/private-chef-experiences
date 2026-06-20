@@ -1,17 +1,49 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { navLinks } from './navLinks'
 import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [activeId, setActiveId] = useState('home')
   const { lang, setLang, t } = useLanguage()
 
-  // Strengthen the glass background once the user scrolls past the hero top.
+  // Keep the latest menu state readable inside the scroll handler without
+  // re-subscribing the listener — while the menu is open the header must
+  // never auto-hide.
+  const openRef = useRef(false)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    onScroll()
+    openRef.current = open
+  }, [open])
+
+  // Header scroll behaviour:
+  //  • becomes dark glass once past the hero top (scrolled),
+  //  • hides (slides up) on scroll-down, reveals on scroll-up,
+  //  • stays visible near the very top and while the menu is open.
+  // Reduced-motion users keep the header pinned (it never hides).
+  useEffect(() => {
+    const reduce =
+      'matchMedia' in window &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let lastY = window.scrollY
+    let ticking = false
+    const update = () => {
+      const y = window.scrollY
+      setScrolled(y > 24)
+      if (!openRef.current && Math.abs(y - lastY) > 6) {
+        setHidden(!reduce && y > 80 && y > lastY)
+      }
+      lastY = y
+      ticking = false
+    }
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        window.requestAnimationFrame(update)
+      }
+    }
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -88,14 +120,15 @@ export default function Header() {
     )
   }
 
+  // Glass once scrolled or while the menu is open; slide away only when the
+  // menu is closed (so an open menu is always reachable).
+  const solid = scrolled || open
+  const applyHidden = hidden && !open
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        open
-          ? 'border-b border-hairline bg-paper/95 backdrop-blur-md'
-          : scrolled
-            ? 'border-b border-hairline bg-paper/95 backdrop-blur-md'
-            : 'bg-transparent'
+      className={`site-header fixed inset-x-0 top-0 z-50 ${solid ? 'is-glass' : ''} ${
+        applyHidden ? 'is-hidden' : ''
       }`}
     >
       <nav

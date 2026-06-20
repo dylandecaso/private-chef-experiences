@@ -77,6 +77,37 @@ body {
 }
 
 /* ============================================================
+   Site header — warm dark "glass" + scroll show/hide.
+   Once scrolled (or while the mobile menu is open) the bar becomes a
+   semi-transparent dark glass: a black→deep-brown gradient with a
+   whisper of gold and a blur. Explicit rgba values mean it is ALWAYS
+   dark and warm — never a flat black slab and never a white/light
+   strip behind it. It slides up out of view on scroll-down and slides
+   back in on scroll-up (translateY, kept in the DOM — no display:none).
+   ============================================================ */
+.site-header {
+  transition: transform 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform;
+}
+.site-header.is-hidden {
+  transform: translateY(-100%);
+}
+.site-header.is-glass {
+  background:
+    linear-gradient(180deg, rgba(8, 7, 5, 0.82) 0%, rgba(14, 10, 6, 0.62) 100%),
+    radial-gradient(150% 230% at 100% 0%, rgba(196, 154, 90, 0.1), transparent 60%);
+  -webkit-backdrop-filter: blur(14px) saturate(125%);
+  backdrop-filter: blur(14px) saturate(125%);
+  border-bottom: 1px solid var(--color-hairline);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition: none;
+  }
+}
+
+/* ============================================================
    Warm-editorial redesign — reusable building blocks.
    ============================================================ */
 

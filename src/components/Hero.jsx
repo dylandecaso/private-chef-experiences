@@ -13,8 +13,8 @@ const CTA_LABEL = {
 // Fallback headline used when the editable content has no title set (e.g. the
 // saved Blob has empty title fields) — the hero should never render headless.
 const HEADLINE_FALLBACK = {
-  en: { line1: 'Refined Mediterranean', line2: 'Culinary Experience' },
-  es: { line1: 'Experiencia Culinaria', line2: 'Mediterránea Refinada' },
+  en: { line1: 'Refined', line2: 'Culinary Experience' },
+  es: { line1: 'Experiencia Culinaria', line2: 'Refinada' },
 }
 
 export default function Hero() {

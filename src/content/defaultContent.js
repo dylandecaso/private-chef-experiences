@@ -4,8 +4,8 @@
 export const defaultContent = {
   hero: {
     eyebrow: { en: 'Italian | Mediterranean Cuisine', es: 'Cocina Italiana | Mediterránea' },
-    titleLine1: { en: 'Refined Mediterranean', es: 'Experiencia Culinaria' },
-    titleLine2: { en: 'Culinary Experience', es: 'Mediterránea Refinada' },
+    titleLine1: { en: 'Refined', es: 'Experiencia Culinaria' },
+    titleLine2: { en: 'Culinary Experience', es: 'Refinada' },
     p1: {
       en: 'Culinary style focused on fresh, high-quality ingredients, simplicity, and Italian and Mediterranean influences. Emphasis on seasonal products, clean flavors, and balanced dishes — creating food that is both comforting and refined.',
       es: 'Estilo culinario enfocado en ingredientes frescos y de alta calidad, simplicidad e influencias italianas y mediterráneas. Énfasis en productos de estación, sabores limpios y platos equilibrados — creando comida reconfortante y refinada al mismo tiempo.',
